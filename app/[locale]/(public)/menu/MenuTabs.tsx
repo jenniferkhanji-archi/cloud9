@@ -50,12 +50,12 @@ function CloudTab({
       )}
     >
       <img
-        src="/brand/cloud-beige.png"
+        src="/brand/cloud-beige-tab.png"
         alt=""
         className="absolute inset-0 h-full w-full object-fill drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
       />
       <motion.img
-        src="/brand/cloud-fill.png"
+        src="/brand/cloud-fill-tab.png"
         alt=""
         animate={{ opacity: active ? 1 : 0 }}
         transition={{ duration: 0.25 }}
