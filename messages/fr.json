@@ -39,16 +39,6 @@
       }
     }
   },
-  "concept": {
-    "title": "Notre concept",
-    "subtitle": "Là où le ciel rencontre votre tasse",
-    "storyTitle": "L'histoire",
-    "storyText": "Cloud9 est né d'une idée simple : et si votre pause café ressemblait à une petite évasion ? Nous voulions un espace doux, onirique et loin de l'agitation—un endroit où prendre son temps, savourer quelque chose de délicieux et repartir plus léger.",
-    "cafeTitle": "Le café",
-    "cafeText": "Notre café est conçu pour donner l'impression de marcher dans un nuage—aéré, calme et accueillant. Courbes douces, lumière naturelle et une palette de crèmes et bleu ciel créent un lieu où chaque visite est spéciale. Que vous veniez pour un café à emporter ou une longue discussion, nous espérons que vous repartirez sur un petit nuage.",
-    "coffeeTitle": "Le café",
-    "coffeeText": "Nous sélectionnons nos grains avec soin et préparons chaque boisson pour qu'elle soit aussi belle que délicieuse. De notre mélange Cloud signature aux spécialités de saison, chaque tasse est réalisée avec la même attention aux détails et une touche de magie."
-  },
   "menu": {
     "title": "Menu",
     "subtitle": "Nos boissons et gourmandises",

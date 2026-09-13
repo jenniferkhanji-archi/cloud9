@@ -11,6 +11,7 @@ import {
   MessageCircle,
   ExternalLink,
   MapPin,
+  Sparkles,
   Menu,
   X,
 } from "lucide-react";
@@ -19,6 +20,7 @@ const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/menu", label: "Menu", icon: Utensils },
   { href: "/admin/gallery", label: "Gallery", icon: Image },
+  { href: "/admin/concept", label: "Concept", icon: Sparkles },
   { href: "/admin/in-store", label: "In-store QR", icon: QrCode },
   { href: "/admin/mood", label: "Cloud9 mood", icon: MessageCircle },
   { href: "/admin/addresses", label: "Addresses", icon: MapPin },
