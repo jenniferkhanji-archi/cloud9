@@ -123,15 +123,15 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
           {sub.items.map((item) => (
             <div
               key={item.id}
-              className="hard-card hard-card-hover flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+              className="hard-card hard-card-hover flex items-center justify-between gap-3 p-4 sm:p-5"
             >
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="font-medium text-espresso">{item.name}</p>
                 {item.description && (
                   <p className="mt-1 text-sm text-stone-600">{item.description}</p>
                 )}
               </div>
-              <div className="flex items-center gap-3 sm:shrink-0">
+              <div className="flex shrink-0 flex-col items-center gap-1.5 sm:flex-row sm:gap-3">
                 {item.imageUrl && (
                   <img
                     src={item.imageUrl}
