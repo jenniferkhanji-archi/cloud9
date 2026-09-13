@@ -4,20 +4,13 @@
     "menu": "Menu",
     "concept": "Concept",
     "gallery": "Gallery",
-    "loyalty": "Loyalty",
     "visitUs": "Visit Us",
     "home": "Home",
-    "logIn": "Log in",
-    "signOut": "Sign out",
-    "myRewards": "My Rewards",
     "admin": "Admin",
     "cancel": "Cancel",
     "close": "Close",
     "done": "Done",
-    "loading": "Loading…",
-    "signIn": "Sign in",
-    "createAccount": "Create account",
-    "backToLoyalty": "Back to Loyalty"
+    "loading": "Loading…"
   },
   "home": {
     "tagline": "A coffee shop where every cup feels like a moment in the clouds.",
@@ -27,14 +20,23 @@
     "moodTitle": "This week's Cloud9 mood",
     "menuCardTitle": "Menu",
     "menuCardDesc": "Specialty drinks, pastries, and our signature blends.",
-    "loyaltyCardTitle": "Loyalty",
-    "loyaltyCardDesc": "Collect points with every visit and redeem rewards.",
+    "galleryCardTitle": "Gallery",
+    "galleryCardDesc": "A peek inside the café and our drinks.",
     "visitCardTitle": "Visit Us",
     "visitCardDesc": "Find our location, opening hours, and how to reach us.",
     "menuShowcase": {
-      "cloud": { "name": "Cloud Series", "desc": "Coconut water, layered and finished with a cloud of flavored foam." },
-      "matcha": { "name": "Matcha Bar", "desc": "Whisked with an organic Okumidori matcha, straight from Japan." },
-      "latte": { "name": "Lattes", "desc": "Espresso and milk, softened with vanilla, hazelnut, or salted caramel." }
+      "cloud": {
+        "name": "Cloud Series",
+        "desc": "Coconut water, layered and finished with a cloud of flavored foam."
+      },
+      "matcha": {
+        "name": "Matcha Bar",
+        "desc": "Whisked with an organic Okumidori matcha, straight from Japan."
+      },
+      "latte": {
+        "name": "Lattes",
+        "desc": "Espresso and milk, softened with vanilla, hazelnut, or salted caramel."
+      }
     }
   },
   "concept": {
@@ -57,14 +59,9 @@
     "title": "Visit Us",
     "subtitle": "We can't wait to see you",
     "addressTitle": "Address",
-    "addressLine1": "123 Cloud Street",
-    "addressLine2": "Sky District",
-    "addressLine3": "Your City",
-    "addressNote": "(Update this in your content or add a CMS.)",
     "hoursTitle": "Opening hours",
     "hoursWeekday": "Monday – Friday: 8:00 – 18:00",
     "hoursWeekend": "Saturday – Sunday: 9:00 – 17:00",
-    "hoursNote": "(Update with your real hours.)",
     "contactTitle": "Contact",
     "followTitle": "Follow us"
   },
@@ -73,66 +70,6 @@
     "subtitle": "A glimpse of Cloud9",
     "comingSoon": "Photos coming soon.",
     "alt": "Cloud9"
-  },
-  "loyalty": {
-    "title": "Loyalty",
-    "subtitle": "Collect points. Redeem rewards. Feel the love.",
-    "howItWorksTitle": "How it works",
-    "howItWorksText": "Visit us in the café, scan the QR code at the counter, enter the daily code you see in-store, and claim your points. One claim per day—so every visit counts.",
-    "rewardsTitle": "Rewards",
-    "rewardsText": "Save up your points and redeem them for discounts, small souvenirs, or a free signature drink. Your balance never expires.",
-    "claimButton": "Claim visit / Open loyalty app"
-  },
-  "loyaltyApp": {
-    "title": "Cloud9 Loyalty",
-    "yourBalance": "Your balance",
-    "pts": "pts",
-    "claimToday": "Claim today's visit",
-    "rewardsTitle": "Rewards",
-    "rewardsSubtitle": "Redeem your points in the café",
-    "loadingAccount": "Loading your account…",
-    "signIn": "Sign in"
-  },
-  "loyaltyClaim": {
-    "title": "Claim your visit",
-    "subtitle": "Enter the daily code from the café to collect your points.",
-    "dailyCode": "Daily code",
-    "codePlaceholder": "e.g. CLOUD9",
-    "claimPoints": "Claim points",
-    "claiming": "Claiming…",
-    "signInFirst": "Sign in first",
-    "pointsAdded": "Points added! See you next time.",
-    "redirecting": "Taking you to your loyalty account…",
-    "oneClaimNote": "One claim per day. Code is visible in the café.",
-    "scanNote": "Scan the in-store QR to open this page.",
-    "somethingWrong": "Something went wrong."
-  },
-  "loyaltyLogin": {
-    "title": "Sign in or create account",
-    "subtitle": "Claim visits and manage your loyalty points.",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm password",
-    "signIn": "Sign in",
-    "signingIn": "Signing in…",
-    "createAccount": "Create account",
-    "creatingAccount": "Creating account…",
-    "newUser": "New to the cloud? Create account",
-    "existingUser": "Already have an account? Sign in",
-    "checkEmail": "Check your email to confirm your account, then sign in below.",
-    "enterEmailPassword": "Please enter your email and password to create an account.",
-    "passwordsMismatch": "Passwords do not match.",
-    "passwordLength": "Password must be at least 6 characters."
-  },
-  "redeemModal": {
-    "title": "Redeem reward",
-    "pointsBalance": "{points} points · Your balance: {balance} pts",
-    "showQr": "Show QR to staff",
-    "creating": "Creating…",
-    "showQrNote": "Show this QR to staff. Points will be deducted when they validate.",
-    "validNote": "Valid for a few minutes. Single use.",
-    "redemptionQr": "Redemption QR",
-    "couldNotCreate": "Could not create redemption"
   },
   "footer": {
     "freshRoasted": "FRESH ROASTED DAILY",

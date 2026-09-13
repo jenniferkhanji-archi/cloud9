@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Cloud, Gift, MapPin, Coffee } from "lucide-react";
+import { Cloud, Camera, MapPin, Coffee } from "lucide-react";
 import { MenuShowcase } from "@/components/three/MenuShowcase";
 import { getWeekKey } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
@@ -9,7 +9,7 @@ import { getSiteContact } from "@/lib/site-contact";
 
 const featureCards = [
   { href: "/menu" as const, icon: Coffee, titleKey: "menuCardTitle" as const, descKey: "menuCardDesc" as const, bg: "bg-powder-blue" },
-  { href: "/loyalty" as const, icon: Gift, titleKey: "loyaltyCardTitle" as const, descKey: "loyaltyCardDesc" as const, bg: "bg-sand" },
+  { href: "/gallery" as const, icon: Camera, titleKey: "galleryCardTitle" as const, descKey: "galleryCardDesc" as const, bg: "bg-sand" },
   { href: "/visit" as const, icon: MapPin, titleKey: "visitCardTitle" as const, descKey: "visitCardDesc" as const, bg: "bg-dusty-blue" },
 ];
 
@@ -30,7 +30,7 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-4 pt-14 pb-10 sm:px-6 sm:pt-20 sm:pb-14">
-      <section className="relative grid items-center gap-6 overflow-visible text-center sm:grid-cols-[1fr_auto_1fr] sm:text-left">
+      <section className="relative grid grid-cols-1 items-center gap-6 overflow-visible text-center sm:grid-cols-[1fr_auto_1fr] sm:text-left">
         <div className="hidden sm:block" aria-hidden />
         <div className="space-y-4">
           <Image
