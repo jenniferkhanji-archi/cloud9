@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
     return await updateSession(request);
   }
 
-  const isNonLocale = pathname.startsWith("/admin") || pathname.startsWith("/staff") || pathname.startsWith("/auth");
+  const isNonLocale = pathname.startsWith("/admin");
 
   if (isNonLocale) {
     return await updateSession(request);

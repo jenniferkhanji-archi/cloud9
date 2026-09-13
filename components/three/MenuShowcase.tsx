@@ -29,7 +29,7 @@ export function MenuShowcase() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="hard-card grid items-center gap-6 overflow-hidden bg-dusty-blue/10 p-6 sm:grid-cols-2 sm:p-10">
+    <section className="hard-card grid grid-cols-1 items-center gap-6 overflow-hidden bg-dusty-blue/10 p-6 sm:grid-cols-2 sm:p-10">
       <div>
         <div className="space-y-2">
           {CATEGORIES.map((cat, i) => (
@@ -38,6 +38,7 @@ export function MenuShowcase() {
               type="button"
               onMouseEnter={() => setActive(i)}
               onFocus={() => setActive(i)}
+              onClick={() => setActive(i)}
               className={cn(
                 "flex w-full items-center gap-2 text-left font-serif text-3xl font-semibold transition-colors duration-200 sm:text-4xl",
                 i === active ? "text-dusty-blue" : "text-espresso/50 hover:text-espresso"

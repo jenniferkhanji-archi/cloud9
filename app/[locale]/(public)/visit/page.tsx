@@ -34,7 +34,6 @@ export default async function VisitPage() {
                 <br />
                 {contact.address_line3}
               </p>
-              <p className="mt-2 text-sm text-stone-500">{t("addressNote")}</p>
             </div>
           </div>
         </div>
@@ -53,7 +52,6 @@ export default async function VisitPage() {
                 <br />
                 {t("hoursWeekend")}
               </p>
-              <p className="mt-2 text-sm text-stone-500">{t("hoursNote")}</p>
             </div>
           </div>
         </div>
