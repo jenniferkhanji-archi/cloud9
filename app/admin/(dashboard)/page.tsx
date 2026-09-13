@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Utensils, Image, QrCode, MessageCircle, Cloud } from "lucide-react";
+import { Utensils, Image, QrCode, MessageCircle, Cloud, Sparkles } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { getWeekKey } from "@/lib/utils";
 
 const links = [
   { href: "/admin/menu", label: "Menu", icon: Utensils },
   { href: "/admin/gallery", label: "Gallery", icon: Image },
+  { href: "/admin/concept", label: "Concept", icon: Sparkles },
   { href: "/admin/in-store", label: "In-store QR", icon: QrCode },
   { href: "/admin/mood", label: "Cloud9 mood", icon: MessageCircle },
 ];
