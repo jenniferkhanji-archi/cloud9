@@ -2,9 +2,8 @@
 
 import dynamic from "next/dynamic";
 
-const SpinningCup = dynamic(
-  () => import("./SpinningCup").then((mod) => mod.SpinningCup),
-  { ssr: false }
-);
+const SpinningCup = dynamic(() => import("./SpinningCup").then((mod) => mod.SpinningCup), {
+  ssr: false,
+});
 
 export { SpinningCup };

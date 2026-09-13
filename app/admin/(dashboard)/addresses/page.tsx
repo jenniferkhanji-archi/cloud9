@@ -12,7 +12,8 @@ export default async function AddressesPage() {
     <div>
       <h1 className="font-serif text-2xl font-medium text-stone-800">Addresses</h1>
       <p className="mt-1 text-stone-600">
-        Edit your address, phone, email, and social links. These appear on the Visit page and in the footer.
+        Edit your address, phone, email, and social links. These appear on the Visit page and in the
+        footer.
       </p>
       <AddressesClient initialContact={contact} />
     </div>

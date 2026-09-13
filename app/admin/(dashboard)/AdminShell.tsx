@@ -49,7 +49,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <div className="flex h-14 items-center justify-between border-b border-latte-beige/60 px-4 md:h-16">
           <div className="flex items-center gap-2">
             <Cloud className="h-6 w-6 text-sky-blue md:h-7 md:w-7" />
-            <span className="font-serif text-base font-medium text-stone-800 md:text-lg">Cloud9 Admin</span>
+            <span className="font-serif text-base font-medium text-stone-800 md:text-lg">
+              Cloud9 Admin
+            </span>
           </div>
           <button
             type="button"

@@ -7,8 +7,5 @@ import { NextResponse } from "next/server";
  */
 export function serverError(error: unknown, status = 500) {
   console.error(error);
-  return NextResponse.json(
-    { error: "Something went wrong. Please try again." },
-    { status }
-  );
+  return NextResponse.json({ error: "Something went wrong. Please try again." }, { status });
 }

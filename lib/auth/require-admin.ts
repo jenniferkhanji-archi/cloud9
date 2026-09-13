@@ -2,8 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 type RequireAdminResult =
-  | { ok: true; admin: SupabaseClient; userId: string }
-  | { ok: false; status: 401 | 403 };
+  { ok: true; admin: SupabaseClient; userId: string } | { ok: false; status: 401 | 403 };
 
 /**
  * Verifies the current request is from a logged-in admin_users member.
@@ -21,11 +20,7 @@ export async function requireAdmin(): Promise<RequireAdminResult> {
 
   const { createClient: createAdmin } = await import("@supabase/supabase-js");
   const admin = createAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey);
-  const { data: au } = await admin
-    .from("admin_users")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
+  const { data: au } = await admin.from("admin_users").select("id").eq("user_id", user.id).single();
   if (!au) return { ok: false, status: 403 };
 
   return { ok: true, admin, userId: user.id };

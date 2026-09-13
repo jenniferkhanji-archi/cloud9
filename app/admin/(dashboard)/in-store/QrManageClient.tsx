@@ -21,9 +21,7 @@ export function QrManageClient() {
           </Button>
         </div>
         <div className="mt-6 print:mt-0 print:flex print:flex-col print:items-center print:justify-center print:[page-break-inside:avoid]">
-          <p className="text-sm text-stone-600 print:hidden">
-            Links to the menu:
-          </p>
+          <p className="text-sm text-stone-600 print:hidden">Links to the menu:</p>
           <p className="mt-1 break-all font-mono text-sm text-stone-800 print:hidden">{menuUrl}</p>
           <div className="mt-4 flex flex-col items-center justify-center rounded-2xl bg-white p-4 print:mt-0 print:rounded-none print:bg-white print:p-6 print:break-inside-avoid">
             <img

@@ -12,7 +12,9 @@ export async function POST(request: Request) {
   const file = form.get("file") as File | null;
   if (!file) return NextResponse.json({ error: "No file" }, { status: 400 });
   const name = `${Date.now()}-${file.name.replace(/\s/g, "-")}`;
-  const { data: up, error: upErr } = await admin.storage.from(BUCKET).upload(name, file, { upsert: true });
+  const { data: up, error: upErr } = await admin.storage
+    .from(BUCKET)
+    .upload(name, file, { upsert: true });
   if (upErr) return serverError(upErr);
   const { data: row, error: rowErr } = await admin
     .from("gallery_images")

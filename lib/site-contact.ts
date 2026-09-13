@@ -26,14 +26,14 @@ export async function getSiteContact(client: any): Promise<SiteContact> {
     const { data } = await client.from("site_contact").select().eq("id", SITE_CONTACT_ID).single();
     if (!data) return { ...DEFAULTS };
     return {
-    address_line1: data.address_line1 ?? DEFAULTS.address_line1,
-    address_line2: data.address_line2 ?? DEFAULTS.address_line2,
-    address_line3: data.address_line3 ?? DEFAULTS.address_line3,
-    phone: data.phone ?? DEFAULTS.phone,
-    email: data.email ?? DEFAULTS.email,
-    instagram: data.instagram ?? DEFAULTS.instagram,
-    tiktok: data.tiktok ?? DEFAULTS.tiktok,
-  };
+      address_line1: data.address_line1 ?? DEFAULTS.address_line1,
+      address_line2: data.address_line2 ?? DEFAULTS.address_line2,
+      address_line3: data.address_line3 ?? DEFAULTS.address_line3,
+      phone: data.phone ?? DEFAULTS.phone,
+      email: data.email ?? DEFAULTS.email,
+      instagram: data.instagram ?? DEFAULTS.instagram,
+      tiktok: data.tiktok ?? DEFAULTS.tiktok,
+    };
   } catch {
     return { ...DEFAULTS };
   }

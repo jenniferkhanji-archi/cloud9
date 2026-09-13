@@ -20,15 +20,14 @@ export async function Footer() {
   const contact = await getSiteContact(supabase);
 
   let isAdmin = false;
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (user) {
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (serviceKey) {
       const { createClient: createAdmin } = await import("@supabase/supabase-js");
-      const admin = createAdmin(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        serviceKey
-      );
+      const admin = createAdmin(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey);
       const { data: au } = await admin
         .from("admin_users")
         .select("id")
@@ -108,10 +107,7 @@ export async function Footer() {
             </div>
 
             <div className="flex items-center gap-2 text-[10px] text-cream/70">
-              <a
-                href={`mailto:${contact.email}`}
-                className="hover:text-cream"
-              >
+              <a href={`mailto:${contact.email}`} className="hover:text-cream">
                 {contact.email}
               </a>
               <span className="text-cream/30">·</span>

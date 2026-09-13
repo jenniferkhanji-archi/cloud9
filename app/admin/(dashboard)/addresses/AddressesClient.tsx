@@ -157,7 +157,8 @@ export function AddressesClient({ initialContact }: { initialContact: SiteContac
             </ul>
           )}
           <p className="mt-1 text-xs text-stone-400">
-            Start typing a French address to see suggestions (postcode and city fill in automatically).
+            Start typing a French address to see suggestions (postcode and city fill in
+            automatically).
           </p>
         </div>
 
@@ -178,7 +179,9 @@ export function AddressesClient({ initialContact }: { initialContact: SiteContac
         ))}
       </div>
       {message === "success" && (
-        <p className="mt-4 text-sm text-green-600">Addresses updated. Changes will appear on the site.</p>
+        <p className="mt-4 text-sm text-green-600">
+          Addresses updated. Changes will appear on the site.
+        </p>
       )}
       {message === "error" && (
         <p className="mt-4 text-sm text-red-600">

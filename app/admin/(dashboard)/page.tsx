@@ -18,7 +18,11 @@ export default async function AdminDashboardPage() {
   if (serviceKey) {
     const { createClient: createAdmin } = await import("@supabase/supabase-js");
     const admin = createAdmin(adminUrl, serviceKey);
-    const { data } = await admin.from("cloud9_moods").select("message").eq("week_key", weekKey).single();
+    const { data } = await admin
+      .from("cloud9_moods")
+      .select("message")
+      .eq("week_key", weekKey)
+      .single();
     moodMessage = data?.message ?? null;
   }
 

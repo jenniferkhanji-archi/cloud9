@@ -17,12 +17,7 @@ const sizeMap = {
   lg: { width: 220, height: 146 },
 };
 
-export function CloudShape({
-  className,
-  size = "md",
-  delay = 0,
-  opacity = 0.9,
-}: CloudShapeProps) {
+export function CloudShape({ className, size = "md", delay = 0, opacity = 0.9 }: CloudShapeProps) {
   const { width, height } = sizeMap[size];
 
   return (

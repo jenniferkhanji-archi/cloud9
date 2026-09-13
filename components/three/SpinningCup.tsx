@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 export type CupTexture =
-  | { type: "photo"; src: string }
-  | { type: "bands"; colors: [number, string][] };
+  { type: "photo"; src: string } | { type: "bands"; colors: [number, string][] };
 
 /**
  * Tracks how far `el` has scrolled through the viewport, as 0→1.
@@ -85,13 +84,7 @@ function loadTexture(texture: CupTexture): Promise<THREE.Texture> {
   });
 }
 
-export function SpinningCup({
-  texture,
-  className,
-}: {
-  texture: CupTexture;
-  className?: string;
-}) {
+export function SpinningCup({ texture, className }: { texture: CupTexture; className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial | null>(null);
   const fadeRef = useRef(1); // 1 = fully visible; drops to 0 then climbs back on texture swap
@@ -120,7 +113,16 @@ export function SpinningCup({
     // The photo only covers the front of the cup, so the cylinder is built as a
     // partial arc (not a full 360deg wrap) and rotation is kept within that arc.
     const thetaLength = Math.PI * 0.75;
-    const geometry = new THREE.CylinderGeometry(1, 0.85, 2.3, 64, 1, true, -thetaLength / 2, thetaLength);
+    const geometry = new THREE.CylinderGeometry(
+      1,
+      0.85,
+      2.3,
+      64,
+      1,
+      true,
+      -thetaLength / 2,
+      thetaLength
+    );
     const material = new THREE.MeshStandardMaterial({
       roughness: 0.35,
       metalness: 0,

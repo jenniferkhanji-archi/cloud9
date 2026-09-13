@@ -11,9 +11,7 @@ export default async function VisitPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
-        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">
-          {t("title")}
-        </h1>
+        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">{t("title")}</h1>
         <p className="mt-4 font-sans text-espresso">{t("subtitle")}</p>
       </header>
 
@@ -44,9 +42,7 @@ export default async function VisitPage() {
               <Clock className="h-6 w-6 text-espresso" strokeWidth={2} />
             </div>
             <div>
-              <h2 className="font-serif text-xl font-semibold text-espresso">
-                {t("hoursTitle")}
-              </h2>
+              <h2 className="font-serif text-xl font-semibold text-espresso">{t("hoursTitle")}</h2>
               <p className="mt-2 font-sans text-stone-600">
                 {t("hoursWeekday")}
                 <br />
@@ -66,14 +62,14 @@ export default async function VisitPage() {
                 {t("contactTitle")}
               </h2>
               <p className="mt-2 font-sans text-stone-600">
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="hover:text-stone-800"
-                >
+                <a href={`mailto:${contact.email}`} className="hover:text-stone-800">
                   {contact.email}
                 </a>
                 <br />
-                <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-stone-800">
+                <a
+                  href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                  className="hover:text-stone-800"
+                >
                   {contact.phone}
                 </a>
               </p>
@@ -87,9 +83,7 @@ export default async function VisitPage() {
               <span className="text-lg font-semibold text-espresso">@</span>
             </div>
             <div>
-              <h2 className="font-serif text-xl font-semibold text-espresso">
-                {t("followTitle")}
-              </h2>
+              <h2 className="font-serif text-xl font-semibold text-espresso">{t("followTitle")}</h2>
               <p className="mt-2 flex flex-wrap gap-4 font-sans text-stone-600">
                 <a
                   href={contact.instagram}

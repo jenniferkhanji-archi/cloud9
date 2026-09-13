@@ -8,9 +8,27 @@ import { Link as LocaleLink } from "@/i18n/navigation";
 import { getSiteContact } from "@/lib/site-contact";
 
 const featureCards = [
-  { href: "/menu" as const, icon: Coffee, titleKey: "menuCardTitle" as const, descKey: "menuCardDesc" as const, bg: "bg-powder-blue" },
-  { href: "/gallery" as const, icon: Camera, titleKey: "galleryCardTitle" as const, descKey: "galleryCardDesc" as const, bg: "bg-sand" },
-  { href: "/visit" as const, icon: MapPin, titleKey: "visitCardTitle" as const, descKey: "visitCardDesc" as const, bg: "bg-dusty-blue" },
+  {
+    href: "/menu" as const,
+    icon: Coffee,
+    titleKey: "menuCardTitle" as const,
+    descKey: "menuCardDesc" as const,
+    bg: "bg-powder-blue",
+  },
+  {
+    href: "/gallery" as const,
+    icon: Camera,
+    titleKey: "galleryCardTitle" as const,
+    descKey: "galleryCardDesc" as const,
+    bg: "bg-sand",
+  },
+  {
+    href: "/visit" as const,
+    icon: MapPin,
+    titleKey: "visitCardTitle" as const,
+    descKey: "visitCardDesc" as const,
+    bg: "bg-dusty-blue",
+  },
 ];
 
 export const dynamic = "force-dynamic";
@@ -65,33 +83,21 @@ export default async function HomePage() {
           <div className="hard-card p-5 text-center">
             <div className="flex items-center justify-center gap-2">
               <Cloud className="h-6 w-6 text-dusty-blue" />
-              <p className="font-serif text-base font-semibold text-espresso">
-                {t("moodTitle")}
-              </p>
+              <p className="font-serif text-base font-semibold text-espresso">{t("moodTitle")}</p>
             </div>
-            <p className="mt-1 text-sm text-stone-600 line-clamp-2">
-              {mood.message}
-            </p>
+            <p className="mt-1 text-sm text-stone-600 line-clamp-2">{mood.message}</p>
           </div>
         </section>
       )}
 
       <section className="grid gap-6 pt-10 sm:grid-cols-3">
         {featureCards.map(({ href, icon: Icon, titleKey, descKey, bg }) => (
-          <LocaleLink
-            key={href}
-            href={href}
-            className="hard-card hard-card-hover block p-6"
-          >
+          <LocaleLink key={href} href={href} className="hard-card hard-card-hover block p-6">
             <div className={`badge-icon ${bg}`}>
               <Icon className="h-7 w-7 text-espresso" strokeWidth={2} />
             </div>
-            <h2 className="mt-4 font-serif text-xl font-semibold text-espresso">
-              {t(titleKey)}
-            </h2>
-            <p className="mt-1.5 text-sm font-medium text-stone-600">
-              {t(descKey)}
-            </p>
+            <h2 className="mt-4 font-serif text-xl font-semibold text-espresso">{t(titleKey)}</h2>
+            <p className="mt-1.5 text-sm font-medium text-stone-600">{t(descKey)}</p>
           </LocaleLink>
         ))}
       </section>
