@@ -12,8 +12,7 @@ import { Redis } from "@upstash/redis";
  * Vercel's Upstash marketplace integration generates when the database is
  * connected with a custom "UPSTASH_REDIS_REST" env var prefix.
  */
-const url =
-  process.env.UPSTASH_REDIS_REST_URL ?? process.env.UPSTASH_REDIS_REST_KV_REST_API_URL;
+const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.UPSTASH_REDIS_REST_KV_REST_API_URL;
 const token =
   process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN;
 

@@ -18,14 +18,22 @@ export function GalleryManageClient({ initialImages }: { initialImages: GalleryI
       form.append("file", file);
       const res = await fetch("/api/admin/gallery", { method: "POST", body: form });
       const data = await res.json();
-      if (data.path) setImages((prev) => [...prev, { id: data.id, path: data.path, caption: null, sort_order: prev.length, created_at: "" }]);
+      if (data.path)
+        setImages((prev) => [
+          ...prev,
+          { id: data.id, path: data.path, caption: null, sort_order: prev.length, created_at: "" },
+        ]);
     } finally {
       setUploading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    await fetch("/api/admin/gallery", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    await fetch("/api/admin/gallery", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
     setImages((prev) => prev.filter((i) => i.id !== id));
   };
 
@@ -35,7 +43,13 @@ export function GalleryManageClient({ initialImages }: { initialImages: GalleryI
   return (
     <div className="mt-6 space-y-4">
       <label className="inline-flex cursor-pointer items-center justify-center rounded-2xl bg-stone-800 px-6 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-stone-700 disabled:opacity-50">
-        <input type="file" accept="image/*" className="hidden" onChange={handleUpload} disabled={uploading} />
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleUpload}
+          disabled={uploading}
+        />
         {uploading ? "Uploading…" : "Upload image"}
       </label>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -50,7 +64,9 @@ export function GalleryManageClient({ initialImages }: { initialImages: GalleryI
             </div>
             <div className="flex items-center justify-between p-3">
               <span className="truncate text-sm text-stone-600">{img.path}</span>
-              <Button size="sm" variant="ghost" onClick={() => handleDelete(img.id)}>Delete</Button>
+              <Button size="sm" variant="ghost" onClick={() => handleDelete(img.id)}>
+                Delete
+              </Button>
             </div>
           </GlassCard>
         ))}

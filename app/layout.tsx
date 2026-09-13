@@ -17,9 +17,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Cloud9 — Dreamy Coffee & Loyalty",
-  description:
-    "A coffee shop where every cup feels like a moment in the clouds. Collect points, redeem rewards, and visit us in-store.",
+  title: "Cloud9 — Dreamy Coffee",
+  description: "A coffee shop where every cup feels like a moment in the clouds.",
 };
 
 export default function RootLayout({

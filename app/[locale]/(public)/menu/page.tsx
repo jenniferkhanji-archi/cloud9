@@ -47,15 +47,12 @@ export default async function MenuPage() {
   const imageUrl = (path: string | null) =>
     path ? `${supabaseUrl}/storage/v1/object/public/menu-items/${path}` : null;
 
-  const byCategory = (items ?? []).reduce<Record<string, MenuItem[]>>(
-    (acc, item) => {
-      const cat = item.category ?? "";
-      if (!acc[cat]) acc[cat] = [];
-      acc[cat].push(item);
-      return acc;
-    },
-    {}
-  );
+  const byCategory = (items ?? []).reduce<Record<string, MenuItem[]>>((acc, item) => {
+    const cat = item.category ?? "";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(item);
+    return acc;
+  }, {});
 
   const groups = GROUPS.map((group) => ({
     label: group.label,
@@ -76,17 +73,13 @@ export default async function MenuPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
-        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">
-          {t("title")}
-        </h1>
+        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">{t("title")}</h1>
         <p className="mt-4 font-sans text-espresso">{t("subtitle")}</p>
       </header>
 
       <div className="mt-12">
         {groups.length === 0 ? (
-          <div className="hard-card p-8 text-center text-stone-600">
-            {t("updating")}
-          </div>
+          <div className="hard-card p-8 text-center text-stone-600">{t("updating")}</div>
         ) : (
           <MenuTabs groups={groups} />
         )}

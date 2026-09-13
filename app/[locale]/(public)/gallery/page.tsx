@@ -9,10 +9,7 @@ export default async function GalleryPage() {
   const t = await getTranslations("gallery");
 
   const supabase = await createClient();
-  const { data: images } = await supabase
-    .from("gallery_images")
-    .select("*")
-    .order("sort_order");
+  const { data: images } = await supabase.from("gallery_images").select("*").order("sort_order");
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const bucket = "gallery";
@@ -20,16 +17,12 @@ export default async function GalleryPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
       <header className="text-center">
-        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">
-          {t("title")}
-        </h1>
+        <h1 className="font-serif text-4xl font-medium text-espresso sm:text-5xl">{t("title")}</h1>
         <p className="mt-4 font-sans text-espresso">{t("subtitle")}</p>
       </header>
 
       {!images?.length ? (
-        <div className="hard-card mt-16 p-12 text-center text-stone-600">
-          {t("comingSoon")}
-        </div>
+        <div className="hard-card mt-16 p-12 text-center text-stone-600">{t("comingSoon")}</div>
       ) : (
         <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {images.map((img) => {
@@ -46,9 +39,7 @@ export default async function GalleryPage() {
                   />
                 </div>
                 {img.caption && (
-                  <p className="p-4 font-sans text-sm text-stone-600">
-                    {img.caption}
-                  </p>
+                  <p className="p-4 font-sans text-sm text-stone-600">{img.caption}</p>
                 )}
               </div>
             );

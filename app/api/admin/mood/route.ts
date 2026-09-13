@@ -10,10 +10,12 @@ export async function POST(request: Request) {
   const weekKey = body.week_key as string;
   const message = (body.message as string) ?? "";
   if (!weekKey) return NextResponse.json({ error: "week_key required" }, { status: 400 });
-  const { error } = await admin.from("cloud9_moods").upsert(
-    { week_key: weekKey, message, updated_at: new Date().toISOString() },
-    { onConflict: "week_key" }
-  );
+  const { error } = await admin
+    .from("cloud9_moods")
+    .upsert(
+      { week_key: weekKey, message, updated_at: new Date().toISOString() },
+      { onConflict: "week_key" }
+    );
   if (error) return serverError(error);
   return NextResponse.json({ success: true });
 }

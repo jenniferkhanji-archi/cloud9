@@ -4,7 +4,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
 
-export function MoodManageClient({ weekKey, initialMessage }: { weekKey: string; initialMessage: string }) {
+export function MoodManageClient({
+  weekKey,
+  initialMessage,
+}: {
+  weekKey: string;
+  initialMessage: string;
+}) {
   const [message, setMessage] = useState(initialMessage);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);

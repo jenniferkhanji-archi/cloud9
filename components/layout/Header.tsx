@@ -14,7 +14,6 @@ const navLinkKeys = [
   { href: "/concept", key: "concept" },
   { href: "/menu", key: "menu" },
   { href: "/gallery", key: "gallery" },
-  { href: "/visit", key: "visitUs" },
 ] as const;
 
 export function Header() {
@@ -84,9 +83,7 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 className={cn(
                   "rounded-xl px-4 py-3 text-sm font-medium",
-                  pathname === link.href
-                    ? "bg-coffee-hover"
-                    : "hover:bg-coffee-hover/80"
+                  pathname === link.href ? "bg-coffee-hover" : "hover:bg-coffee-hover/80"
                 )}
               >
                 {t(link.key)}

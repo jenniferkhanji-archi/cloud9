@@ -41,11 +41,32 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
       body: JSON.stringify({ name: "New item", category: "Drinks", sort_order: items.length }),
     });
     const data = await res.json();
-    if (data.id) setItems((prev) => [...prev, { ...data, name: "New item", name_fr: null, description: null, description_fr: null, price_cents: null, category: "Drinks", image_path: null, sort_order: items.length, active: true, created_at: "", updated_at: "" }]);
+    if (data.id)
+      setItems((prev) => [
+        ...prev,
+        {
+          ...data,
+          name: "New item",
+          name_fr: null,
+          description: null,
+          description_fr: null,
+          price_cents: null,
+          category: "Drinks",
+          image_path: null,
+          sort_order: items.length,
+          active: true,
+          created_at: "",
+          updated_at: "",
+        },
+      ]);
   };
 
   const handleDelete = async (id: string) => {
-    await fetch("/api/admin/menu", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    await fetch("/api/admin/menu", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
     setItems((prev) => prev.filter((i) => i.id !== id));
   };
 
@@ -62,7 +83,11 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
         setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
         await handleSave(updated);
         if (oldPath) {
-          await fetch("/api/admin/menu/image", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ path: oldPath }) });
+          await fetch("/api/admin/menu/image", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ path: oldPath }),
+          });
         }
       }
     } finally {
@@ -76,7 +101,11 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
     setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
     await handleSave(updated);
     if (oldPath) {
-      await fetch("/api/admin/menu/image", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ path: oldPath }) });
+      await fetch("/api/admin/menu/image", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path: oldPath }),
+      });
     }
   };
 
@@ -88,7 +117,11 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
           <div className="mb-3 flex items-center gap-3">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-latte-beige bg-white/60">
               {item.image_path ? (
-                <img src={imageUrl(item.image_path)} alt="" className="h-full w-full object-cover" />
+                <img
+                  src={imageUrl(item.image_path)}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
               ) : (
                 <span className="text-xs text-stone-400">No photo</span>
               )}
@@ -106,7 +139,11 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
                     e.target.value = "";
                   }}
                 />
-                {uploadingImage === item.id ? "Uploading…" : item.image_path ? "Replace photo" : "Upload photo"}
+                {uploadingImage === item.id
+                  ? "Uploading…"
+                  : item.image_path
+                    ? "Replace photo"
+                    : "Upload photo"}
               </label>
               {item.image_path && (
                 <Button size="sm" variant="ghost" onClick={() => handleImageRemove(item)}>
@@ -120,38 +157,74 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
               placeholder="Name (EN)"
               value={item.name}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, name: e.target.value } : i)))}
+              onChange={(e) =>
+                setItems((prev) =>
+                  prev.map((i) => (i.id === item.id ? { ...i, name: e.target.value } : i))
+                )
+              }
             />
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
               placeholder="Nom (FR)"
               value={item.name_fr ?? ""}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, name_fr: e.target.value || null } : i)))}
+              onChange={(e) =>
+                setItems((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id ? { ...i, name_fr: e.target.value || null } : i
+                  )
+                )
+              }
             />
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2.5 text-base"
               placeholder="Description (EN)"
               value={item.description ?? ""}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, description: e.target.value || null } : i)))}
+              onChange={(e) =>
+                setItems((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id ? { ...i, description: e.target.value || null } : i
+                  )
+                )
+              }
             />
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2.5 text-base"
               placeholder="Description (FR)"
               value={item.description_fr ?? ""}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, description_fr: e.target.value || null } : i)))}
+              onChange={(e) =>
+                setItems((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id ? { ...i, description_fr: e.target.value || null } : i
+                  )
+                )
+              }
             />
             <input
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
               placeholder="Category"
               value={item.category ?? ""}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, category: e.target.value || null } : i)))}
+              onChange={(e) =>
+                setItems((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id ? { ...i, category: e.target.value || null } : i
+                  )
+                )
+              }
             />
             <input
               type="number"
               className="rounded-xl border border-latte-beige bg-white px-3 py-2 text-sm"
               placeholder="Price (cents)"
               value={item.price_cents ?? ""}
-              onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, price_cents: e.target.value ? parseInt(e.target.value, 10) : null } : i)))}
+              onChange={(e) =>
+                setItems((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id
+                      ? { ...i, price_cents: e.target.value ? parseInt(e.target.value, 10) : null }
+                      : i
+                  )
+                )
+              }
             />
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -159,12 +232,20 @@ export function MenuManageClient({ initialItems }: { initialItems: MenuItem[] })
               <input
                 type="checkbox"
                 checked={item.active}
-                onChange={(e) => setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, active: e.target.checked } : i)))}
+                onChange={(e) =>
+                  setItems((prev) =>
+                    prev.map((i) => (i.id === item.id ? { ...i, active: e.target.checked } : i))
+                  )
+                }
               />
               Active
             </label>
-            <Button size="sm" onClick={() => handleSave(item)} disabled={saving === item.id}>Save</Button>
-            <Button size="sm" variant="ghost" onClick={() => handleDelete(item.id)}>Delete</Button>
+            <Button size="sm" onClick={() => handleSave(item)} disabled={saving === item.id}>
+              Save
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => handleDelete(item.id)}>
+              Delete
+            </Button>
           </div>
         </GlassCard>
       ))}

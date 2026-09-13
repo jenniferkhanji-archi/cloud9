@@ -1,32 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link as LocaleLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { SpinningCup } from "@/components/three/SpinningCupClient";
-import type { CupTexture } from "@/components/three/SpinningCup";
 import { cn } from "@/lib/utils";
 
-const CATEGORIES: { key: string; texture: CupTexture }[] = [
-  {
-    key: "cloud",
-    texture: { type: "photo", src: "/brand/cup-cloud.png" },
-  },
-  {
-    key: "matcha",
-    texture: { type: "photo", src: "/brand/cup-photo.png" },
-  },
-  {
-    key: "latte",
-    texture: { type: "photo", src: "/brand/cup-latte.png" },
-  },
+const CATEGORIES = [
+  { key: "cloud", src: "/brand/cup-cloud.png" },
+  { key: "matcha", src: "/brand/cup-photo.png" },
+  { key: "latte", src: "/brand/cup-latte.png" },
 ];
+
+const AUTO_ADVANCE_MS = 4000;
 
 export function MenuShowcase() {
   const t = useTranslations("home");
   const [active, setActive] = useState(0);
+
+  // Auto-advance to the next category, restarting the timer whenever `active`
+  // changes for any reason (auto tick or a manual hover/click) so a visitor's
+  // own interaction doesn't get cut off by the next scheduled tick.
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setActive((cur) => (cur + 1) % CATEGORIES.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearTimeout(id);
+  }, [active]);
 
   return (
     <section className="hard-card grid grid-cols-1 items-center gap-6 overflow-hidden bg-dusty-blue/10 p-6 sm:grid-cols-2 sm:p-10">
@@ -78,7 +79,26 @@ export function MenuShowcase() {
           </Button>
         </div>
       </div>
-      <SpinningCup texture={CATEGORIES[active].texture} className="h-64 w-full sm:h-80" />
+
+      <div className="relative h-64 w-full sm:h-80">
+        <AnimatePresence>
+          {CATEGORIES.map(
+            (cat, i) =>
+              i === active && (
+                <motion.img
+                  key={cat.key}
+                  src={cat.src}
+                  alt={t(`menuShowcase.${cat.key}.name`)}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="absolute inset-0 h-full w-full object-contain"
+                />
+              )
+          )}
+        </AnimatePresence>
+      </div>
     </section>
   );
 }

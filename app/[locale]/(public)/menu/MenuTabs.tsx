@@ -98,18 +98,16 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
       </div>
 
       {group.subs.length > 1 && (
-        <div className="-mx-4 mt-2 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
-          <div className="flex w-max gap-2 sm:w-full sm:flex-wrap sm:justify-center sm:gap-3">
-            {group.subs.map((s, i) => (
-              <CloudTab
-                key={s.label}
-                label={s.label}
-                active={i === activeSub}
-                onClick={() => setActiveSub(i)}
-                size="sm"
-              />
-            ))}
-          </div>
+        <div className="mt-2 flex flex-wrap justify-center gap-2 sm:gap-3">
+          {group.subs.map((s, i) => (
+            <CloudTab
+              key={s.label}
+              label={s.label}
+              active={i === activeSub}
+              onClick={() => setActiveSub(i)}
+              size="sm"
+            />
+          ))}
         </div>
       )}
 

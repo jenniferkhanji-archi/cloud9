@@ -44,8 +44,8 @@ INSERT INTO admin_users (user_id) VALUES ('your-auth-user-uuid-here');
 npm run dev
 ```
 
-- **Site:** http://localhost:3000  
-- **Admin:** http://localhost:3000/admin (log in as admin)  
+- **Site:** http://localhost:3000
+- **Admin:** http://localhost:3000/admin (log in as admin)
 - **Staff validation:** http://localhost:3000/staff/validate?token=… (used when staff scans a customer’s redemption QR)
 
 ## Daily code reminder (GitHub Actions)
