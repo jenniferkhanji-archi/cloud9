@@ -75,11 +75,11 @@ function CloudTab({
 }
 
 export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
-  const [activeGroup, setActiveGroup] = useState(0);
-  const [activeSub, setActiveSub] = useState(0);
+  const [activeGroup, setActiveGroup] = useState<number | null>(null);
+  const [activeSub, setActiveSub] = useState<number | null>(null);
 
-  const group = groups[activeGroup];
-  const sub = group.subs[activeSub];
+  const group = activeGroup != null ? groups[activeGroup] : null;
+  const sub = group && activeSub != null ? group.subs[activeSub] : null;
 
   return (
     <div>
@@ -91,13 +91,13 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
             active={i === activeGroup}
             onClick={() => {
               setActiveGroup(i);
-              setActiveSub(0);
+              setActiveSub(g.subs.length === 1 ? 0 : null);
             }}
           />
         ))}
       </div>
 
-      {group.subs.length > 1 && (
+      {group && group.subs.length > 1 && (
         <div className="mt-2 flex flex-wrap justify-center gap-2 sm:gap-3">
           {group.subs.map((s, i) => (
             <CloudTab
@@ -112,40 +112,42 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
       )}
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={`${activeGroup}-${activeSub}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="mt-8 space-y-3"
-        >
-          {sub.items.map((item) => (
-            <div
-              key={item.id}
-              className="hard-card hard-card-hover flex items-center justify-between gap-3 p-4 sm:p-5"
-            >
-              <div className="min-w-0 flex-1">
-                <p className="font-medium text-espresso">{item.name}</p>
-                {item.description && (
-                  <p className="mt-1 text-sm text-stone-600">{item.description}</p>
-                )}
+        {sub && (
+          <motion.div
+            key={`${activeGroup}-${activeSub}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="mt-8 space-y-3"
+          >
+            {sub.items.map((item) => (
+              <div
+                key={item.id}
+                className="hard-card hard-card-hover flex items-center justify-between gap-3 p-4 sm:p-5"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-espresso">{item.name}</p>
+                  {item.description && (
+                    <p className="mt-1 text-sm text-stone-600">{item.description}</p>
+                  )}
+                </div>
+                <div className="flex shrink-0 flex-col items-center gap-1.5 sm:flex-row sm:gap-3">
+                  {item.imageUrl && (
+                    <img
+                      src={item.imageUrl}
+                      alt={item.name}
+                      className="h-16 w-16 rounded-2xl border-2 border-espresso object-cover sm:h-20 sm:w-20"
+                    />
+                  )}
+                  <p className="font-sans font-semibold text-espresso">
+                    {formatPrice(item.price_cents)}
+                  </p>
+                </div>
               </div>
-              <div className="flex shrink-0 flex-col items-center gap-1.5 sm:flex-row sm:gap-3">
-                {item.imageUrl && (
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="h-16 w-16 rounded-2xl border-2 border-espresso object-cover sm:h-20 sm:w-20"
-                  />
-                )}
-                <p className="font-sans font-semibold text-espresso">
-                  {formatPrice(item.price_cents)}
-                </p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
