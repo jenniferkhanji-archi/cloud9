@@ -30,9 +30,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider messages={messages}>
       <LocaleHtml locale={locale} />
       <CloudBackground />
-      <div className="relative flex h-screen flex-col overflow-hidden">
+      <div className="relative flex min-h-screen flex-col">
         <Header />
-        <main className="min-h-0 flex-1 overflow-y-auto pt-16">{children}</main>
+        <main className="flex-1 pt-16">{children}</main>
         <Footer />
       </div>
     </NextIntlClientProvider>
