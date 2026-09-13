@@ -41,34 +41,35 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-4 pt-4 pb-10 sm:px-6 sm:pt-8 sm:pb-14">
-      <section className="relative grid grid-cols-1 items-center gap-6 overflow-visible text-center sm:grid-cols-[1fr_auto_1fr] sm:text-left">
-        <div className="hidden sm:block" aria-hidden />
-        <div className="space-y-4">
+      <section className="relative overflow-visible text-center sm:text-left">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-4">
+            <Image
+              src="/brand/mascot-blue.png"
+              alt=""
+              width={220}
+              height={244}
+              priority
+              className="mx-auto h-40 w-auto sm:hidden"
+            />
+            <p className="mx-auto max-w-md font-sans text-base text-stone-600 sm:mx-0">
+              {t("tagline")}
+            </p>
+            <p className="text-xs font-medium text-stone-500">
+              {[contact.address_line1, contact.address_line2, contact.address_line3]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+          </div>
           <Image
             src="/brand/mascot-blue.png"
             alt=""
             width={220}
             height={244}
             priority
-            className="mx-auto h-40 w-auto sm:hidden"
+            className="hidden shrink-0 sm:block sm:h-52 sm:w-auto"
           />
-          <p className="mx-auto max-w-md font-sans text-base text-stone-600 sm:mx-0">
-            {t("tagline")}
-          </p>
-          <p className="text-xs font-medium text-stone-500">
-            {[contact.address_line1, contact.address_line2, contact.address_line3]
-              .filter(Boolean)
-              .join(" · ")}
-          </p>
         </div>
-        <Image
-          src="/brand/mascot-blue.png"
-          alt=""
-          width={220}
-          height={244}
-          priority
-          className="hidden min-w-0 sm:mx-auto sm:block sm:h-52 sm:w-auto"
-        />
       </section>
 
       {mood?.message && (
