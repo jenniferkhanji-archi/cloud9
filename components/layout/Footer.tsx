@@ -1,16 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Coffee, Leaf, Heart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
-import { Link as LocaleLink } from "@/i18n/navigation";
 import { getSiteContact } from "@/lib/site-contact";
-
-const trustBadgeKeys = [
-  { icon: Coffee, key: "freshRoasted" as const },
-  { icon: Leaf, key: "locallySourced" as const },
-  { icon: Heart, key: "warmWelcome" as const },
-];
 
 export async function Footer() {
   const t = await getTranslations("footer");
@@ -39,33 +30,9 @@ export async function Footer() {
 
   return (
     <footer className="shrink-0 border-t-2 border-espresso bg-espresso">
-      <div className="border-b border-cream/15 py-0.5">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 sm:px-6">
-          {trustBadgeKeys.map(({ icon: Icon, key }) => (
-            <div
-              key={key}
-              className="flex items-center gap-1 text-[10px] font-medium tracking-wide text-powder-blue"
-            >
-              <Icon className="h-3 w-3 shrink-0" strokeWidth={1.5} />
-              <span>{t(key)}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div className="py-1.5">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-center sm:justify-between sm:text-left">
-            <LocaleLink href="/" className="flex items-center" aria-label={tCommon("cloud9")}>
-              <Image
-                src="/brand/logo-white.png"
-                alt={tCommon("cloud9")}
-                width={120}
-                height={82}
-                className="h-6 w-auto"
-              />
-            </LocaleLink>
-
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-semibold uppercase text-cream/60">
                 {t("findUs")}

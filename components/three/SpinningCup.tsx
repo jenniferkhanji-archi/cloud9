@@ -6,32 +6,6 @@ import * as THREE from "three";
 export type CupTexture =
   { type: "photo"; src: string } | { type: "bands"; colors: [number, string][] };
 
-/**
- * Tracks how far `el` has scrolled through the viewport, as 0→1.
- * Uses getBoundingClientRect so it works regardless of which ancestor
- * element is the actual scroll container (this app scrolls its <main>,
- * not the window).
- */
-function watchSectionProgress(el: HTMLElement, onChange: (progress: number) => void) {
-  const scrollParent = el.closest("main");
-
-  function update() {
-    const rect = el.getBoundingClientRect();
-    const viewportH = window.innerHeight;
-    const raw = (viewportH - rect.top) / (viewportH + rect.height);
-    onChange(Math.min(1, Math.max(0, raw)));
-  }
-
-  update();
-  const target: HTMLElement | Window = scrollParent ?? window;
-  target.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
-  return () => {
-    target.removeEventListener("scroll", update);
-    window.removeEventListener("resize", update);
-  };
-}
-
 function drawBandTexture(bands: [number, string][], label?: string): HTMLCanvasElement {
   const canvas = document.createElement("canvas");
   canvas.width = 512;
@@ -134,11 +108,6 @@ export function SpinningCup({ texture, className }: { texture: CupTexture; class
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    let progress = 0;
-    const stopWatching = watchSectionProgress(container, (p) => {
-      progress = p;
-    });
-
     function resize() {
       if (!container) return;
       const { clientWidth, clientHeight } = container;
@@ -151,10 +120,15 @@ export function SpinningCup({ texture, className }: { texture: CupTexture; class
     resizeObserver.observe(container);
 
     let frameId: number;
+    const clock = new THREE.Clock();
     function animate() {
-      mesh.rotation.y = (progress - 0.5) * 0.7;
-      mesh.rotation.x = Math.sin(progress * Math.PI) * 0.06;
-      mesh.position.y = Math.sin(progress * Math.PI * 2) * 0.04;
+      const t = clock.getElapsedTime();
+      // Full 360° would expose the untextured back of the partial-arc
+      // geometry, so this swivels back and forth within the safe arc
+      // instead — constant, self-playing motion, never scroll-gated.
+      mesh.rotation.y = Math.sin(t * 0.5) * 0.35;
+      mesh.rotation.x = Math.sin(t * 0.7) * 0.06;
+      mesh.position.y = Math.sin(t * 0.9) * 0.04;
       fadeRef.current = Math.min(1, fadeRef.current + 0.06);
       material.opacity = fadeRef.current;
       renderer.render(scene, camera);
@@ -164,7 +138,6 @@ export function SpinningCup({ texture, className }: { texture: CupTexture; class
 
     return () => {
       cancelAnimationFrame(frameId);
-      stopWatching();
       resizeObserver.disconnect();
       geometry.dispose();
       material.map?.dispose();
