@@ -52,7 +52,7 @@ export default async function HomePage() {
               priority
               className="mx-auto h-40 w-auto sm:hidden"
             />
-            <p className="mx-auto max-w-md font-sans text-base text-stone-600 sm:mx-0">
+            <p className="mx-auto max-w-md font-sans text-base text-sky-blue sm:mx-0">
               {t("tagline")}
             </p>
             <p className="text-xs font-medium text-stone-500">
