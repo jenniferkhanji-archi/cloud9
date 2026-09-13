@@ -22,8 +22,8 @@
     "menuCardDesc": "Specialty drinks, pastries, and our signature blends.",
     "galleryCardTitle": "Gallery",
     "galleryCardDesc": "A peek inside the café and our drinks.",
-    "visitCardTitle": "Visit Us",
-    "visitCardDesc": "Find our location, opening hours, and how to reach us.",
+    "conceptCardTitle": "Our Concept",
+    "conceptCardDesc": "The story behind Cloud9 and what makes it feel like home.",
     "menuShowcase": {
       "cloud": {
         "name": "Cloud Series",
@@ -55,16 +55,6 @@
     "updating": "Our menu is being updated. Check back soon.",
     "other": "Other"
   },
-  "visit": {
-    "title": "Visit Us",
-    "subtitle": "We can't wait to see you",
-    "addressTitle": "Address",
-    "hoursTitle": "Opening hours",
-    "hoursWeekday": "Monday – Friday: 8:00 – 18:00",
-    "hoursWeekend": "Saturday – Sunday: 9:00 – 17:00",
-    "contactTitle": "Contact",
-    "followTitle": "Follow us"
-  },
   "gallery": {
     "title": "Gallery",
     "subtitle": "A glimpse of Cloud9",
@@ -76,6 +66,7 @@
     "locallySourced": "LOCALLY SOURCED",
     "warmWelcome": "WARM WELCOME",
     "findUs": "Find us",
-    "address": "123 Cloud St"
+    "address": "123 Cloud St",
+    "hours": "Mon–Fri 8–18h · Sat–Sun 9–17h"
   }
 }

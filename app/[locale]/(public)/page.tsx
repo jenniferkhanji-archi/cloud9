@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Cloud, Camera, MapPin, Coffee } from "lucide-react";
+import { Cloud, Camera, Sparkles, Coffee } from "lucide-react";
 import { MenuShowcase } from "@/components/three/MenuShowcase";
 import { getWeekKey } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
@@ -23,10 +23,10 @@ const featureCards = [
     bg: "bg-sand",
   },
   {
-    href: "/visit" as const,
-    icon: MapPin,
-    titleKey: "visitCardTitle" as const,
-    descKey: "visitCardDesc" as const,
+    href: "/concept" as const,
+    icon: Sparkles,
+    titleKey: "conceptCardTitle" as const,
+    descKey: "conceptCardDesc" as const,
     bg: "bg-dusty-blue",
   },
 ];
@@ -52,12 +52,12 @@ export default async function HomePage() {
         <div className="hidden sm:block" aria-hidden />
         <div className="space-y-4">
           <Image
-            src="/brand/logo-blue.png"
-            alt="Cloud9"
-            width={320}
-            height={218}
+            src="/brand/mascot-blue.png"
+            alt=""
+            width={220}
+            height={244}
             priority
-            className="mx-auto h-24 w-auto sm:mx-0 sm:h-28"
+            className="mx-auto h-40 w-auto sm:hidden"
           />
           <p className="mx-auto max-w-md font-sans text-base text-stone-600 sm:mx-0">
             {t("tagline")}
@@ -74,7 +74,7 @@ export default async function HomePage() {
           width={220}
           height={244}
           priority
-          className="mx-auto h-40 w-auto sm:h-52"
+          className="hidden min-w-0 sm:mx-auto sm:block sm:h-52 sm:w-auto"
         />
       </section>
 

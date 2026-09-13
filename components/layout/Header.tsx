@@ -14,7 +14,6 @@ const navLinkKeys = [
   { href: "/concept", key: "concept" },
   { href: "/menu", key: "menu" },
   { href: "/gallery", key: "gallery" },
-  { href: "/visit", key: "visitUs" },
 ] as const;
 
 export function Header() {

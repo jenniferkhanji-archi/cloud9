@@ -38,7 +38,7 @@ export async function Footer() {
   }
 
   return (
-    <footer className="shrink-0 max-h-[10vh] border-t-2 border-espresso bg-espresso">
+    <footer className="shrink-0 border-t-2 border-espresso bg-espresso">
       <div className="border-b border-cream/15 py-0.5">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 sm:px-6">
           {trustBadgeKeys.map(({ icon: Icon, key }) => (
@@ -103,6 +103,8 @@ export async function Footer() {
                 {[contact.address_line1, contact.address_line2, contact.address_line3]
                   .filter(Boolean)
                   .join(", ")}
+                <span className="text-cream/30"> · </span>
+                {t("hours")}
               </span>
             </div>
 

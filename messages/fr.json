@@ -22,8 +22,8 @@
     "menuCardDesc": "Boissons spéciales, pâtisseries et nos mélanges signature.",
     "galleryCardTitle": "Galerie",
     "galleryCardDesc": "Un aperçu du café et de nos boissons.",
-    "visitCardTitle": "Nous rendre visite",
-    "visitCardDesc": "Trouvez notre adresse, nos horaires et comment nous rejoindre.",
+    "conceptCardTitle": "Notre concept",
+    "conceptCardDesc": "L'histoire de Cloud9 et ce qui en fait un cocon.",
     "menuShowcase": {
       "cloud": {
         "name": "Cloud Series",
@@ -55,16 +55,6 @@
     "updating": "Notre menu est en cours de mise à jour. Revenez bientôt.",
     "other": "Autre"
   },
-  "visit": {
-    "title": "Nous rendre visite",
-    "subtitle": "Nous avons hâte de vous accueillir",
-    "addressTitle": "Adresse",
-    "hoursTitle": "Horaires d'ouverture",
-    "hoursWeekday": "Lundi – Vendredi : 8h00 – 18h00",
-    "hoursWeekend": "Samedi – Dimanche : 9h00 – 17h00",
-    "contactTitle": "Contact",
-    "followTitle": "Suivez-nous"
-  },
   "gallery": {
     "title": "Galerie",
     "subtitle": "Un aperçu de Cloud9",
@@ -76,6 +66,7 @@
     "locallySourced": "SOURCES LOCALES",
     "warmWelcome": "BIENVEILLANT ACCUEIL",
     "findUs": "Nous trouver",
-    "address": "123 Cloud St"
+    "address": "123 Cloud St",
+    "hours": "Lun–Ven 8h–18h · Sam–Dim 9h–17h"
   }
 }
