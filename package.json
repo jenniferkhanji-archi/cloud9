@@ -30,15 +30,13 @@
     "qrcode": "^1.5.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.5.4",
-    "three": "^0.186.0"
+    "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@types/three": "^0.186.0",
     "eslint": "^9.15.0",
     "eslint-config-next": "15.1.9",
     "postcss": "^8.4.49",
