@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link as LocaleLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { OrbitingClouds } from "@/components/cloud/OrbitingClouds";
@@ -75,28 +75,30 @@ function SlideThree() {
 
 const SLIDES = [SlideOne, SlideTwo, SlideThree];
 
+const zoomVariants = {
+  enter: (dir: number) => ({ opacity: 0, scale: dir >= 0 ? 0.5 : 1.6 }),
+  center: { opacity: 1, scale: 1 },
+  exit: (dir: number) => ({ opacity: 0, scale: dir >= 0 ? 1.6 : 0.5 }),
+};
+
 export default function LabPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
-  const [height, setHeight] = useState(0);
+  const [direction, setDirection] = useState(0);
   const lastTrigger = useRef(0);
   const touchStartY = useRef<number | null>(null);
+  const SlideContent = SLIDES[index];
 
   useEffect(() => {
-    function measure() {
-      if (containerRef.current) setHeight(containerRef.current.clientHeight);
-    }
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  useEffect(() => {
-    function go(direction: 1 | -1) {
+    function go(dir: 1 | -1) {
       const now = Date.now();
       if (now - lastTrigger.current < WHEEL_COOLDOWN) return;
       lastTrigger.current = now;
-      setIndex((i) => Math.min(SLIDES.length - 1, Math.max(0, i + direction)));
+      setIndex((i) => {
+        const next = Math.min(SLIDES.length - 1, Math.max(0, i + dir));
+        if (next !== i) setDirection(dir);
+        return next;
+      });
     }
 
     function onWheel(e: WheelEvent) {
@@ -151,22 +153,22 @@ export default function LabPage() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-sky-blue/15 via-transparent to-cream" />
       <OrbitingClouds className="pointer-events-none absolute left-1/2 top-1/2 z-10" />
 
-      <motion.div
-        animate={{ y: -index * height }}
-        transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
-      >
-        {SLIDES.map((SlideContent, i) => (
-          <div
-            key={i}
-            style={{ height: height || "100vh" }}
-            className="relative z-20 flex w-full items-center justify-center px-6 text-center"
-          >
-            <div>
-              <SlideContent />
-            </div>
+      <AnimatePresence custom={direction} initial={false} mode="popLayout">
+        <motion.div
+          key={index}
+          custom={direction}
+          variants={zoomVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.65, ease: [0.65, 0, 0.35, 1] }}
+          className="absolute inset-0 z-20 flex w-full items-center justify-center px-6 text-center"
+        >
+          <div>
+            <SlideContent />
           </div>
-        ))}
-      </motion.div>
+        </motion.div>
+      </AnimatePresence>
 
       <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
         {SLIDES.map((_, i) => (

@@ -13,14 +13,14 @@ interface OrbitConfig {
 }
 
 const ORBITS: OrbitConfig[] = [
-  { radius: 170, size: 96, duration: 22, startAngle: 10, opacity: 1 },
-  { radius: 240, size: 70, duration: 30, startAngle: 70, reverse: true, opacity: 0.9 },
-  { radius: 130, size: 58, duration: 16, startAngle: 130, opacity: 0.95 },
-  { radius: 290, size: 84, duration: 36, startAngle: 190, reverse: true, opacity: 0.9 },
-  { radius: 210, size: 46, duration: 26, startAngle: 250, opacity: 0.85 },
-  { radius: 330, size: 60, duration: 42, startAngle: 300, reverse: true, opacity: 0.8 },
-  { radius: 100, size: 40, duration: 13, startAngle: 350, opacity: 0.9 },
-  { radius: 270, size: 52, duration: 32, startAngle: 40, opacity: 0.85 },
+  { radius: 170, size: 96, duration: 46, startAngle: 10, opacity: 1 },
+  { radius: 240, size: 70, duration: 62, startAngle: 70, reverse: true, opacity: 0.9 },
+  { radius: 130, size: 58, duration: 34, startAngle: 130, opacity: 0.95 },
+  { radius: 290, size: 84, duration: 74, startAngle: 190, reverse: true, opacity: 0.9 },
+  { radius: 210, size: 46, duration: 54, startAngle: 250, opacity: 0.85 },
+  { radius: 330, size: 60, duration: 86, startAngle: 300, reverse: true, opacity: 0.8 },
+  { radius: 100, size: 40, duration: 28, startAngle: 350, opacity: 0.9 },
+  { radius: 270, size: 52, duration: 66, startAngle: 40, opacity: 0.85 },
 ];
 
 function OrbitingCloud({
