@@ -21,7 +21,7 @@ function SlideOne() {
         priority
         className="mx-auto h-28 w-auto"
       />
-      <h1 className="mt-6 font-serif text-4xl font-medium text-espresso sm:text-6xl">
+      <h1 className="mt-6 font-serif text-4xl font-medium text-sky-blue sm:text-6xl">
         Every Cup,
         <br />A Moment in the Clouds
       </h1>
@@ -39,7 +39,7 @@ function SlideTwo() {
       <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
         Small-Batch Roasted
       </p>
-      <h2 className="mt-4 font-serif text-3xl font-medium text-espresso sm:text-5xl">
+      <h2 className="mt-4 font-serif text-4xl font-medium text-sky-blue sm:text-6xl">
         Poured With Care,
         <br />
         Sip By Sip
@@ -62,7 +62,7 @@ function SlideThree() {
         alt="Cloud9"
         width={160}
         height={109}
-        className="mx-auto mt-4 h-16 w-auto"
+        className="mx-auto mt-4 h-24 w-auto sm:h-36"
       />
       <div className="mt-10">
         <Button asChild variant="bold" size="lg">
