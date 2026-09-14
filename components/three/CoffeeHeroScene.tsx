@@ -30,10 +30,7 @@ function buildCup() {
   const cup = new THREE.Mesh(cupGeometry, cupMaterial);
   group.add(cup);
 
-  const handle = new THREE.Mesh(
-    new THREE.TorusGeometry(0.34, 0.075, 16, 48),
-    cupMaterial
-  );
+  const handle = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.075, 16, 48), cupMaterial);
   handle.rotation.y = Math.PI / 2;
   handle.position.set(0.62, 0.55, 0);
   group.add(handle);
@@ -50,10 +47,7 @@ function buildCup() {
   coffeeSurface.position.y = 0.93;
   group.add(coffeeSurface);
 
-  const saucer = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.95, 1.0, 0.06, 48),
-    cupMaterial
-  );
+  const saucer = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.0, 0.06, 48), cupMaterial);
   saucer.position.y = -0.05;
   group.add(saucer);
 
@@ -65,16 +59,22 @@ function buildSteam() {
   const speeds = new Float32Array(STEAM_COUNT);
   const phases = new Float32Array(STEAM_COUNT);
   const sizes = new Float32Array(STEAM_COUNT);
+  const drifts = new Float32Array(STEAM_COUNT * 2);
 
   for (let i = 0; i < STEAM_COUNT; i++) {
-    const radius = Math.random() * 0.28;
+    const radius = Math.random() * 0.15;
     const angle = Math.random() * Math.PI * 2;
     positions[i * 3] = Math.cos(angle) * radius;
     positions[i * 3 + 1] = 0.95;
     positions[i * 3 + 2] = Math.sin(angle) * radius;
-    speeds[i] = 0.12 + Math.random() * 0.1;
+    speeds[i] = 0.08 + Math.random() * 0.06;
     phases[i] = Math.random();
-    sizes[i] = 16 + Math.random() * 22;
+    sizes[i] = 10 + Math.random() * 14;
+
+    const driftAngle = Math.random() * Math.PI * 2;
+    const driftMag = 0.4 + Math.random() * 1.1;
+    drifts[i * 2] = Math.cos(driftAngle) * driftMag;
+    drifts[i * 2 + 1] = Math.sin(driftAngle) * driftMag;
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -82,6 +82,7 @@ function buildSteam() {
   geometry.setAttribute("aSpeed", new THREE.BufferAttribute(speeds, 1));
   geometry.setAttribute("aPhase", new THREE.BufferAttribute(phases, 1));
   geometry.setAttribute("aSize", new THREE.BufferAttribute(sizes, 1));
+  geometry.setAttribute("aDrift", new THREE.BufferAttribute(drifts, 2));
 
   const material = new THREE.ShaderMaterial({
     uniforms: {
@@ -92,18 +93,19 @@ function buildSteam() {
       attribute float aSpeed;
       attribute float aPhase;
       attribute float aSize;
+      attribute vec2 aDrift;
       uniform float uTime;
       varying float vAlpha;
       void main() {
         float t = fract(uTime * aSpeed + aPhase);
         vec3 pos = position;
-        pos.y += t * 2.6;
-        float sway = t * t;
-        pos.x += sin(t * 6.2831 + aPhase * 12.0) * 0.35 * sway;
-        pos.z += cos(t * 6.2831 + aPhase * 9.0) * 0.35 * sway;
-        vAlpha = sin(t * 3.14159);
+        pos.y += t * 2.8;
+        float spread = t * t;
+        pos.x += aDrift.x * spread + sin(t * 9.0 + aPhase * 20.0) * 0.04 * t;
+        pos.z += aDrift.y * spread + cos(t * 9.0 + aPhase * 17.0) * 0.04 * t;
+        vAlpha = sin(t * 3.14159) * (1.0 - spread * 0.6);
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-        gl_PointSize = aSize * (300.0 / -mvPosition.z);
+        gl_PointSize = aSize * (1.0 + spread) * (300.0 / -mvPosition.z);
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -112,7 +114,7 @@ function buildSteam() {
       varying float vAlpha;
       void main() {
         float d = length(gl_PointCoord - vec2(0.5));
-        float circle = smoothstep(0.5, 0.1, d);
+        float circle = smoothstep(0.5, 0.05, d);
         gl_FragColor = vec4(uColor, circle * vAlpha * 0.05);
       }
     `,
@@ -138,11 +140,7 @@ function buildBeans() {
   for (let i = 0; i < BEAN_COUNT; i++) {
     const depth = -5 + Math.random() * 10;
     depths.push(depth);
-    dummy.position.set(
-      (Math.random() - 0.5) * 9,
-      (Math.random() - 0.5) * 5 + 0.5,
-      depth
-    );
+    dummy.position.set((Math.random() - 0.5) * 9, (Math.random() - 0.5) * 5 + 0.5, depth);
     dummy.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
     const s = 0.6 + Math.random() * 0.8;
     dummy.scale.set(s * 0.65, s, s * 0.5);

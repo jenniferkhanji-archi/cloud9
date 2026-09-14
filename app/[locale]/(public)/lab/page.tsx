@@ -45,7 +45,8 @@ export default function LabPage() {
           </p>
           <h2 className="mt-4 font-serif text-3xl font-semibold text-[#f7efe0] sm:text-5xl">
             Poured With Care,
-            <br />Sip By Sip
+            <br />
+            Sip By Sip
           </h2>
         </Section>
 
