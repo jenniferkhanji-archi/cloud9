@@ -1,67 +1,183 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Link as LocaleLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { OrbitingClouds } from "@/components/cloud/OrbitingClouds";
 
-function Slide({ children }: { children: React.ReactNode }) {
+const WHEEL_COOLDOWN = 900;
+const SWIPE_THRESHOLD = 50;
+
+function SlideOne() {
   return (
-    <section className="relative flex h-full w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden px-6 text-center">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-sky-blue/15 via-transparent to-cream" />
-      <OrbitingClouds className="pointer-events-none absolute left-1/2 top-1/2" />
-      <div className="relative z-10">{children}</div>
-    </section>
+    <>
+      <Image
+        src="/brand/mascot-blue.png"
+        alt=""
+        width={220}
+        height={244}
+        priority
+        className="mx-auto h-28 w-auto"
+      />
+      <h1 className="mt-6 font-serif text-4xl font-medium text-espresso sm:text-6xl">
+        Every Cup,
+        <br />A Moment in the Clouds
+      </h1>
+      <p className="mx-auto mt-6 max-w-sm font-sans text-base text-stone-600">
+        Scroll to drift through Cloud9
+      </p>
+      <div className="mx-auto mt-10 h-8 w-5 animate-bounce rounded-full border-2 border-espresso/40" />
+    </>
   );
 }
 
-export default function LabPage() {
+function SlideTwo() {
   return (
-    <div className="h-[calc(100vh-4rem)] snap-y snap-mandatory overflow-y-scroll scroll-smooth bg-cream">
-      <Slide>
-        <Image
-          src="/brand/mascot-blue.png"
-          alt=""
-          width={220}
-          height={244}
-          priority
-          className="mx-auto h-28 w-auto"
-        />
-        <h1 className="mt-6 font-serif text-4xl font-medium text-espresso sm:text-6xl">
-          Every Cup,
-          <br />A Moment in the Clouds
-        </h1>
-        <p className="mx-auto mt-6 max-w-sm font-sans text-base text-stone-600">
-          Scroll to drift through Cloud9
-        </p>
-        <div className="mx-auto mt-10 h-8 w-5 animate-bounce rounded-full border-2 border-espresso/40" />
-      </Slide>
+    <>
+      <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
+        Small-Batch Roasted
+      </p>
+      <h2 className="mt-4 font-serif text-3xl font-medium text-espresso sm:text-5xl">
+        Poured With Care,
+        <br />
+        Sip By Sip
+      </h2>
+      <p className="mx-auto mt-6 max-w-md font-sans text-base text-stone-600">
+        Specialty coffee, matcha, and pastries — made fresh, served with a smile.
+      </p>
+    </>
+  );
+}
 
-      <Slide>
-        <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
-          Small-Batch Roasted
-        </p>
-        <h2 className="mt-4 font-serif text-3xl font-medium text-espresso sm:text-5xl">
-          Poured With Care,
-          <br />
-          Sip By Sip
-        </h2>
-        <p className="mx-auto mt-6 max-w-md font-sans text-base text-stone-600">
-          Specialty coffee, matcha, and pastries — made fresh, served with a smile.
-        </p>
-      </Slide>
+function SlideThree() {
+  return (
+    <>
+      <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
+        84 Rue Boileau, Lyon
+      </p>
+      <Image
+        src="/brand/logo-blue.png"
+        alt="Cloud9"
+        width={160}
+        height={109}
+        className="mx-auto mt-4 h-16 w-auto"
+      />
+      <div className="mt-10">
+        <Button asChild variant="bold" size="lg">
+          <LocaleLink href="/menu">See the menu</LocaleLink>
+        </Button>
+      </div>
+    </>
+  );
+}
 
-      <Slide>
-        <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
-          84 Rue Boileau, Lyon
-        </p>
-        <h2 className="mt-4 font-serif text-4xl font-medium text-espresso sm:text-6xl">Cloud9</h2>
-        <div className="mt-10">
-          <Button asChild variant="bold" size="lg">
-            <LocaleLink href="/">Back to the site</LocaleLink>
-          </Button>
-        </div>
-      </Slide>
+const SLIDES = [SlideOne, SlideTwo, SlideThree];
+
+export default function LabPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+  const [height, setHeight] = useState(0);
+  const lastTrigger = useRef(0);
+  const touchStartY = useRef<number | null>(null);
+
+  useEffect(() => {
+    function measure() {
+      if (containerRef.current) setHeight(containerRef.current.clientHeight);
+    }
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  useEffect(() => {
+    function go(direction: 1 | -1) {
+      const now = Date.now();
+      if (now - lastTrigger.current < WHEEL_COOLDOWN) return;
+      lastTrigger.current = now;
+      setIndex((i) => Math.min(SLIDES.length - 1, Math.max(0, i + direction)));
+    }
+
+    function onWheel(e: WheelEvent) {
+      e.preventDefault();
+      if (Math.abs(e.deltaY) < 8) return;
+      go(e.deltaY > 0 ? 1 : -1);
+    }
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "ArrowDown" || e.key === "PageDown") go(1);
+      if (e.key === "ArrowUp" || e.key === "PageUp") go(-1);
+    }
+
+    function onTouchStart(e: TouchEvent) {
+      touchStartY.current = e.touches[0].clientY;
+    }
+
+    function onTouchMove(e: TouchEvent) {
+      e.preventDefault();
+    }
+
+    function onTouchEnd(e: TouchEvent) {
+      if (touchStartY.current == null) return;
+      const delta = touchStartY.current - e.changedTouches[0].clientY;
+      if (Math.abs(delta) > SWIPE_THRESHOLD) {
+        go(delta > 0 ? 1 : -1);
+      }
+      touchStartY.current = null;
+    }
+
+    const node = containerRef.current;
+    node?.addEventListener("wheel", onWheel, { passive: false });
+    node?.addEventListener("touchstart", onTouchStart, { passive: true });
+    node?.addEventListener("touchmove", onTouchMove, { passive: false });
+    node?.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      node?.removeEventListener("wheel", onWheel);
+      node?.removeEventListener("touchstart", onTouchStart);
+      node?.removeEventListener("touchmove", onTouchMove);
+      node?.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative h-[calc(100vh-4rem)] w-full overflow-hidden bg-cream"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-sky-blue/15 via-transparent to-cream" />
+      <OrbitingClouds className="pointer-events-none absolute left-1/2 top-1/2 z-10" />
+
+      <motion.div
+        animate={{ y: -index * height }}
+        transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
+      >
+        {SLIDES.map((SlideContent, i) => (
+          <div
+            key={i}
+            style={{ height: height || "100vh" }}
+            className="relative z-20 flex w-full items-center justify-center px-6 text-center"
+          >
+            <div>
+              <SlideContent />
+            </div>
+          </div>
+        ))}
+      </motion.div>
+
+      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+        {SLIDES.map((_, i) => (
+          <div
+            key={i}
+            className={`h-1.5 rounded-full transition-all ${
+              i === index ? "w-6 bg-espresso" : "w-1.5 bg-espresso/25"
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
