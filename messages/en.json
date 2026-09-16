@@ -24,6 +24,11 @@
     "galleryCardDesc": "A peek inside the café and our drinks.",
     "conceptCardTitle": "Our Concept",
     "conceptCardDesc": "The story behind Cloud9 and what makes it feel like home.",
+    "visitTitle": "Come Say Hi",
+    "visitSubtitle": "Everything you need to find us",
+    "hoursLabel": "Hours",
+    "addressLabel": "Address",
+    "contactLabel": "Contact",
     "menuShowcase": {
       "cloud": {
         "name": "Cloud Series",

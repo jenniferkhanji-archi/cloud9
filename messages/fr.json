@@ -24,6 +24,11 @@
     "galleryCardDesc": "Un aperçu du café et de nos boissons.",
     "conceptCardTitle": "Notre concept",
     "conceptCardDesc": "L'histoire de Cloud9 et ce qui en fait un cocon.",
+    "visitTitle": "Venez nous dire bonjour",
+    "visitSubtitle": "Tout ce qu'il faut pour nous trouver",
+    "hoursLabel": "Horaires",
+    "addressLabel": "Adresse",
+    "contactLabel": "Contact",
     "menuShowcase": {
       "cloud": {
         "name": "Cloud Series",

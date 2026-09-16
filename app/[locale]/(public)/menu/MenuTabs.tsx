@@ -74,6 +74,31 @@ function CloudTab({
   );
 }
 
+function SubTab({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "relative rounded-full border-2 px-5 py-2 text-xs font-bold uppercase tracking-wide transition-all sm:text-sm",
+        active
+          ? "border-espresso bg-dusty-blue text-cream shadow-hard-sm"
+          : "border-espresso/25 bg-transparent text-espresso/60 hover:border-espresso/60 hover:text-espresso"
+      )}
+    >
+      {label}
+    </button>
+  );
+}
+
 export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
   const [activeGroup, setActiveGroup] = useState<number | null>(null);
   const [activeSub, setActiveSub] = useState<number | null>(null);
@@ -98,14 +123,13 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
       </div>
 
       {group && group.subs.length > 1 && (
-        <div className="mt-2 flex flex-wrap justify-center gap-2 sm:gap-3">
+        <div className="mt-5 flex flex-wrap justify-center gap-2">
           {group.subs.map((s, i) => (
-            <CloudTab
+            <SubTab
               key={s.label}
               label={s.label}
               active={i === activeSub}
               onClick={() => setActiveSub(i)}
-              size="sm"
             />
           ))}
         </div>
