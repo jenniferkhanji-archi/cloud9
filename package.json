@@ -19,7 +19,6 @@
     "@radix-ui/react-toast": "^1.2.2",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.47.10",
-    "@types/three": "^0.169.0",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.4",
     "class-variance-authority": "^0.7.0",
