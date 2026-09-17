@@ -15,13 +15,7 @@ function postalCodeFromArrondissement(text: string): string | undefined {
   return `690${match[1].padStart(2, "0")}`;
 }
 
-export function LocalBusinessJsonLd({
-  contact,
-  locale,
-}: {
-  contact: SiteContact;
-  locale: string;
-}) {
+export function LocalBusinessJsonLd({ contact, locale }: { contact: SiteContact; locale: string }) {
   const telephone = toFrenchE164(contact.phone);
   const postalCode = postalCodeFromArrondissement(contact.address_line2);
   const sameAs = [contact.instagram, contact.tiktok].filter(
@@ -63,9 +57,6 @@ export function LocalBusinessJsonLd({
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
   );
 }
