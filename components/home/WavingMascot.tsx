@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const HAND_LEFT = 0.76;
 const HAND_TOP = 0;
 const HAND_WIDTH = 1 - HAND_LEFT;
-const HAND_HEIGHT = 0.24;
+const HAND_HEIGHT = 0.34;
 
 export function WavingMascot({ className }: { className?: string }) {
   const bgSizeX = (100 / HAND_WIDTH).toFixed(2);
@@ -41,7 +41,7 @@ export function WavingMascot({ className }: { className?: string }) {
           backgroundSize: `${bgSizeX}% ${bgSizeY}%`,
           backgroundPosition: "100% 0%",
           backgroundRepeat: "no-repeat",
-          transformOrigin: "15% 92%",
+          transformOrigin: "18% 76%",
         }}
         animate={{ rotate: [0, -18, 12, -18, 0] }}
         transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
