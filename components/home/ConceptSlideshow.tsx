@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -16,12 +16,14 @@ const AUTO_MS = 6000;
 
 export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const isTouch = useRef(false);
 
   useEffect(() => {
-    if (slides.length < 2) return;
+    if (slides.length < 2 || paused) return;
     const id = setTimeout(() => setActive((a) => (a + 1) % slides.length), AUTO_MS);
     return () => clearTimeout(id);
-  }, [active, slides.length]);
+  }, [active, slides.length, paused]);
 
   const goTo = (i: number) => setActive((i + slides.length) % slides.length);
   const slide = slides[active];
@@ -29,28 +31,41 @@ export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
 
   return (
     <div className="overflow-hidden rounded-3xl bg-soft-white/50 shadow-soft backdrop-blur-md">
+      {/* Image (if any) as a full-bleed background with text overlaid, on every breakpoint */}
       <div
-        className={`grid grid-cols-1 items-stretch sm:h-[400px] ${hasImages ? "sm:grid-cols-2" : ""}`}
+        className={`relative ${hasImages ? "h-[420px] sm:h-[480px]" : ""}`}
+        onMouseEnter={() => {
+          if (!isTouch.current) setPaused(true);
+        }}
+        onMouseLeave={() => {
+          if (!isTouch.current) setPaused(false);
+        }}
+        onTouchStart={() => {
+          isTouch.current = true;
+          setPaused(true);
+        }}
+        onTouchEnd={() => setPaused(false)}
+        onTouchCancel={() => setPaused(false)}
       >
+        {hasImages &&
+          slides.map(
+            (s, i) =>
+              s.image && (
+                <Image
+                  key={s.id}
+                  src={s.image}
+                  alt={s.title}
+                  fill
+                  priority={i === active}
+                  className={`object-cover transition-opacity duration-500 ease-in-out ${
+                    i === active ? "opacity-100" : "opacity-0"
+                  }`}
+                  sizes="100vw"
+                />
+              )
+          )}
         {hasImages && (
-          <div className="relative aspect-[4/3] sm:aspect-auto">
-            {slides.map(
-              (s, i) =>
-                s.image && (
-                  <Image
-                    key={s.id}
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    priority={i === active}
-                    className={`object-cover transition-opacity duration-500 ease-in-out ${
-                      i === active ? "opacity-100" : "opacity-0"
-                    }`}
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                  />
-                )
-            )}
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-espresso/95 via-espresso/55 to-espresso/15" />
         )}
         <AnimatePresence mode="wait">
           <motion.div
@@ -59,12 +74,24 @@ export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="flex flex-col justify-center overflow-hidden p-8 sm:p-12"
+            className={
+              hasImages
+                ? "absolute inset-x-0 bottom-0 p-6 sm:p-12"
+                : "flex min-h-[280px] flex-col justify-center p-8 text-center"
+            }
           >
-            <h3 className="font-serif text-2xl font-medium text-espresso">{slide.title}</h3>
-            <p className="mt-4 line-clamp-6 font-sans text-sm leading-relaxed text-stone-600 sm:line-clamp-5 sm:text-base">
-              {slide.text}
-            </p>
+            <div className={hasImages ? "sm:max-w-xl" : ""}>
+              <h3
+                className={`font-serif text-2xl font-medium sm:text-3xl ${hasImages ? "text-cream" : "text-espresso"}`}
+              >
+                {slide.title}
+              </h3>
+              <p
+                className={`mt-3 line-clamp-4 font-sans text-sm leading-relaxed sm:text-base ${hasImages ? "text-cream/90" : "text-stone-600"}`}
+              >
+                {slide.text}
+              </p>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>

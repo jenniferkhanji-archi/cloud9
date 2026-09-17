@@ -99,7 +99,6 @@ export default async function HomePage() {
             text={fr ? concept.closing_line_fr : concept.closing_line}
             className="font-serif text-2xl font-medium text-sky-blue-deep sm:text-4xl"
           />
-          <p className="mt-3 font-sans text-sky-blue-deep">{tGallery("subtitle")}</p>
         </header>
 
         <div className="mt-6">
@@ -112,12 +111,6 @@ export default async function HomePage() {
       </section>
 
       <section id="concept" className="mt-12 scroll-mt-24 sm:mt-16">
-        <header className="text-center">
-          <p className="font-sans text-sky-blue-deep">
-            {fr ? concept.subtitle_fr : concept.subtitle}
-          </p>
-        </header>
-
         <div className="mt-6">
           <ConceptSlideshow
             slides={concept.sections.map((s, i) => ({
