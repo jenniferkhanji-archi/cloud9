@@ -16,7 +16,7 @@ export function PracticalInfo({
 
   return (
     <div className="grid gap-4 sm:grid-cols-3">
-      <div className="rounded-3xl bg-soft-white/25 p-6 text-center shadow-soft backdrop-blur-md">
+      <div className="rounded-3xl border border-white/40 bg-soft-white/10 p-6 text-center shadow-soft backdrop-blur-xl">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-powder-blue/70">
           <Clock className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
@@ -24,7 +24,7 @@ export function PracticalInfo({
         <p className="mt-1.5 text-sm font-medium text-stone-600">{hours}</p>
       </div>
 
-      <div className="rounded-3xl bg-soft-white/25 p-6 text-center shadow-soft backdrop-blur-md">
+      <div className="rounded-3xl border border-white/40 bg-soft-white/10 p-6 text-center shadow-soft backdrop-blur-xl">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sand/70">
           <MapPin className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
@@ -32,7 +32,7 @@ export function PracticalInfo({
         <p className="mt-1.5 text-sm font-medium text-stone-600">{address}</p>
       </div>
 
-      <div className="rounded-3xl bg-soft-white/25 p-6 text-center shadow-soft backdrop-blur-md">
+      <div className="rounded-3xl border border-white/40 bg-soft-white/10 p-6 text-center shadow-soft backdrop-blur-xl">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-dusty-blue/70">
           <Mail className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
