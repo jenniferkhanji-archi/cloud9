@@ -30,7 +30,7 @@ export function MenuShowcase() {
   }, [active]);
 
   return (
-    <section className="hard-card grid grid-cols-1 items-center gap-6 overflow-hidden bg-dusty-blue/10 p-6 sm:grid-cols-2 sm:p-10">
+    <section className="grid grid-cols-1 items-center gap-6 p-6 sm:grid-cols-2 sm:p-10">
       <div>
         <div className="space-y-2">
           {CATEGORIES.map((cat, i) => (

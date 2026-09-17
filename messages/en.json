@@ -61,7 +61,8 @@
     "address": "123 Cloud St",
     "hours": "Mon–Fri 8–18h · Sat–Sun 9–17h",
     "hoursWeekday": "Mon–Fri 8–18h",
-    "hoursWeekend": "Sat–Sun 9–17h"
+    "hoursWeekend": "Sat–Sun 9–17h",
+    "leaveReview": "Leave us a review"
   },
   "notFound": {
     "title": "Lost in the clouds.",
