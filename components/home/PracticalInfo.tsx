@@ -7,7 +7,7 @@ export function PracticalInfo({
   labels,
 }: {
   contact: SiteContact;
-  hours: string;
+  hours: { weekday: string; weekend: string };
   labels: { hours: string; address: string; contact: string };
 }) {
   const address = [contact.address_line1, contact.address_line2, contact.address_line3]
@@ -21,7 +21,11 @@ export function PracticalInfo({
           <Clock className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
         <h3 className="mt-4 font-serif text-lg font-semibold text-espresso">{labels.hours}</h3>
-        <p className="mt-1.5 text-sm font-medium text-stone-600">{hours}</p>
+        <p className="mt-1.5 text-sm font-medium text-stone-600">
+          {hours.weekday}
+          <br />
+          {hours.weekend}
+        </p>
       </div>
 
       <div className="rounded-3xl border border-white/40 bg-soft-white/10 p-6 text-center shadow-soft backdrop-blur-xl">
