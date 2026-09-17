@@ -13,19 +13,31 @@ function Field({
   value,
   onChange,
   multiline,
+  maxLength,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   multiline?: boolean;
+  maxLength?: number;
 }) {
   return (
     <div>
-      <label className="mb-1 block text-xs font-medium text-stone-500">{label}</label>
+      <div className="mb-1 flex items-baseline justify-between">
+        <label className="block text-xs font-medium text-stone-500">{label}</label>
+        {maxLength && (
+          <span
+            className={`text-xs ${value.length > maxLength ? "text-red-500" : "text-stone-400"}`}
+          >
+            {value.length}/{maxLength}
+          </span>
+        )}
+      </div>
       {multiline ? (
         <textarea
           rows={4}
           value={value}
+          maxLength={maxLength}
           onChange={(e) => onChange(e.target.value)}
           className={inputClass}
         />
@@ -33,6 +45,7 @@ function Field({
         <input
           type="text"
           value={value}
+          maxLength={maxLength}
           onChange={(e) => onChange(e.target.value)}
           className={inputClass}
         />
@@ -110,8 +123,20 @@ function SectionEditor({
         <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Title (EN)" value={section.title} onChange={set("title")} />
           <Field label="Titre (FR)" value={section.title_fr} onChange={set("title_fr")} />
-          <Field label="Text (EN)" value={section.text} onChange={set("text")} multiline />
-          <Field label="Texte (FR)" value={section.text_fr} onChange={set("text_fr")} multiline />
+          <Field
+            label="Text (EN)"
+            value={section.text}
+            onChange={set("text")}
+            multiline
+            maxLength={220}
+          />
+          <Field
+            label="Texte (FR)"
+            value={section.text_fr}
+            onChange={set("text_fr")}
+            multiline
+            maxLength={220}
+          />
         </div>
       </div>
     </GlassCard>
