@@ -1,4 +1,5 @@
-import { Cloud } from "lucide-react";
+import { Coffee } from "lucide-react";
+import Image from "next/image";
 import { MenuShowcase } from "@/components/three/MenuShowcase";
 import { GalleryGrid } from "@/components/home/GalleryGrid";
 import { ConceptSlideshow } from "@/components/home/ConceptSlideshow";
@@ -6,7 +7,7 @@ import { PracticalInfo } from "@/components/home/PracticalInfo";
 import { WavingMascot } from "@/components/home/WavingMascot";
 import { TypewriterText } from "@/components/home/TypewriterText";
 import { LocalBusinessJsonLd } from "@/components/seo/LocalBusinessJsonLd";
-import { getWeekKey } from "@/lib/utils";
+import { getMonthKey } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations, getLocale } from "next-intl/server";
 import { getSiteContact } from "@/lib/site-contact";
@@ -25,11 +26,11 @@ export default async function HomePage() {
   const supabase = await createClient();
   const contact = await getSiteContact(supabase);
   const concept = await getConceptContent(supabase);
-  const weekKey = getWeekKey();
-  const { data: mood } = await supabase
-    .from("cloud9_moods")
-    .select("message")
-    .eq("week_key", weekKey)
+  const monthKey = getMonthKey();
+  const { data: drink } = await supabase
+    .from("drink_of_month")
+    .select("name, description, image_path")
+    .eq("month_key", monthKey)
     .single();
 
   const { data: galleryRows } = await supabase
@@ -58,14 +59,32 @@ export default async function HomePage() {
         </p>
       </section>
 
-      {mood?.message && (
+      {drink?.name && (
         <section className="mx-auto mt-8 w-full max-w-xl">
-          <div className="hard-card p-5 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <Cloud className="h-6 w-6 text-dusty-blue" />
-              <p className="font-serif text-base font-semibold text-espresso">{t("moodTitle")}</p>
+          <div className="flex items-stretch overflow-hidden rounded-3xl border border-white/40 bg-soft-white/10 text-left shadow-soft backdrop-blur-xl">
+            {drink.image_path && (
+              <div className="relative w-28 shrink-0 sm:w-36">
+                <Image
+                  src={`${supabaseUrl}/storage/v1/object/public/drink-of-month/${drink.image_path}`}
+                  alt={drink.name}
+                  fill
+                  className="object-cover"
+                  sizes="144px"
+                />
+              </div>
+            )}
+            <div className="min-w-0 flex-1 p-5">
+              <div className="flex items-center gap-2">
+                <Coffee className="h-5 w-5 shrink-0 text-dusty-blue" />
+                <p className="font-sans text-xs font-semibold uppercase tracking-wide text-stone-500">
+                  {t("drinkOfMonthTitle")}
+                </p>
+              </div>
+              <p className="mt-1.5 font-serif text-lg font-semibold text-espresso">{drink.name}</p>
+              {drink.description && (
+                <p className="mt-1 text-sm text-stone-600 line-clamp-2">{drink.description}</p>
+              )}
             </div>
-            <p className="mt-1 text-sm text-stone-600 line-clamp-2">{mood.message}</p>
           </div>
         </section>
       )}

@@ -25,37 +25,49 @@ export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
 
   const goTo = (i: number) => setActive((i + slides.length) % slides.length);
   const slide = slides[active];
+  const hasImages = slides.some((s) => s.image);
 
   return (
     <div className="overflow-hidden rounded-3xl bg-soft-white/50 shadow-soft backdrop-blur-md">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={slide.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className={`grid grid-cols-1 items-stretch ${slide.image ? "sm:grid-cols-2" : ""}`}
-        >
-          {slide.image && (
-            <div className="relative aspect-[4/3] sm:aspect-auto">
-              <Image
-                src={slide.image}
-                alt={slide.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 100vw, 50vw"
-              />
-            </div>
-          )}
-          <div className="flex flex-col justify-center p-8 sm:p-12">
+      <div
+        className={`grid grid-cols-1 items-stretch sm:h-[400px] ${hasImages ? "sm:grid-cols-2" : ""}`}
+      >
+        {hasImages && (
+          <div className="relative aspect-[4/3] sm:aspect-auto">
+            {slides.map(
+              (s, i) =>
+                s.image && (
+                  <Image
+                    key={s.id}
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    priority={i === active}
+                    className={`object-cover transition-opacity duration-500 ease-in-out ${
+                      i === active ? "opacity-100" : "opacity-0"
+                    }`}
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                )
+            )}
+          </div>
+        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slide.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="flex flex-col justify-center overflow-hidden p-8 sm:p-12"
+          >
             <h3 className="font-serif text-2xl font-medium text-espresso">{slide.title}</h3>
-            <p className="mt-4 font-sans text-sm leading-relaxed text-stone-600 sm:text-base">
+            <p className="mt-4 line-clamp-6 font-sans text-sm leading-relaxed text-stone-600 sm:line-clamp-5 sm:text-base">
               {slide.text}
             </p>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       <div className="flex items-center justify-center gap-4 py-4">
         <button

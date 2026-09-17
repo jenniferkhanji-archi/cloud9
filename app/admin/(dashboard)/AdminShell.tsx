@@ -8,7 +8,7 @@ import {
   Utensils,
   Image,
   QrCode,
-  MessageCircle,
+  Coffee,
   ExternalLink,
   MapPin,
   Sparkles,
@@ -22,7 +22,7 @@ const nav = [
   { href: "/admin/gallery", label: "Gallery", icon: Image },
   { href: "/admin/concept", label: "Concept", icon: Sparkles },
   { href: "/admin/in-store", label: "In-store QR", icon: QrCode },
-  { href: "/admin/mood", label: "Cloud9 mood", icon: MessageCircle },
+  { href: "/admin/drink-of-month", label: "Drink of the month", icon: Coffee },
   { href: "/admin/addresses", label: "Addresses", icon: MapPin },
 ];
 
