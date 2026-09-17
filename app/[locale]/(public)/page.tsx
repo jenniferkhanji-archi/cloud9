@@ -4,6 +4,7 @@ import { GalleryGrid } from "@/components/home/GalleryGrid";
 import { ConceptSlideshow } from "@/components/home/ConceptSlideshow";
 import { PracticalInfo } from "@/components/home/PracticalInfo";
 import { WavingMascot } from "@/components/home/WavingMascot";
+import { TypewriterText } from "@/components/home/TypewriterText";
 import { getWeekKey } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -69,17 +70,26 @@ export default async function HomePage() {
         <MenuShowcase />
       </div>
 
-      <section id="concept" className="mt-20 scroll-mt-24 sm:mt-28">
+      <section id="gallery" className="mt-20 scroll-mt-24 sm:mt-28">
         <header className="text-center">
-          <h2 className="font-serif text-3xl font-medium text-espresso sm:text-5xl">
-            {fr ? concept.title_fr : concept.title}
-          </h2>
-          <p className="mt-3 font-sans text-stone-600">
-            {fr ? concept.subtitle_fr : concept.subtitle}
-          </p>
+          <TypewriterText
+            text={fr ? concept.closing_line_fr : concept.closing_line}
+            className="font-serif text-2xl font-medium text-sky-blue sm:text-4xl"
+          />
+          <p className="mt-3 font-sans text-sky-blue">{tGallery("subtitle")}</p>
         </header>
 
-        <div className="mt-10">
+        <div className="mt-6">
+          <GalleryGrid images={galleryImages} comingSoon={tGallery("comingSoon")} />
+        </div>
+      </section>
+
+      <section id="concept" className="mt-20 scroll-mt-24 sm:mt-28">
+        <header className="text-center">
+          <p className="font-sans text-sky-blue">{fr ? concept.subtitle_fr : concept.subtitle}</p>
+        </header>
+
+        <div className="mt-6">
           <ConceptSlideshow
             slides={concept.sections.map((s, i) => ({
               id: `section-${i}`,
@@ -91,34 +101,14 @@ export default async function HomePage() {
             }))}
           />
         </div>
-
-        <p className="mt-8 text-center font-serif text-lg font-medium text-sky-blue">
-          {fr ? concept.closing_line_fr : concept.closing_line}
-        </p>
-      </section>
-
-      <section id="gallery" className="mt-20 scroll-mt-24 sm:mt-28">
-        <header className="text-center">
-          <h2 className="font-serif text-3xl font-medium text-espresso sm:text-5xl">
-            {tGallery("title")}
-          </h2>
-          <p className="mt-3 font-sans text-stone-600">{tGallery("subtitle")}</p>
-        </header>
-
-        <div className="mt-10">
-          <GalleryGrid images={galleryImages} comingSoon={tGallery("comingSoon")} />
-        </div>
       </section>
 
       <section id="visit" className="mt-20 scroll-mt-24 sm:mt-28">
         <header className="text-center">
-          <h2 className="font-serif text-3xl font-medium text-espresso sm:text-5xl">
-            {t("visitTitle")}
-          </h2>
-          <p className="mt-3 font-sans text-stone-600">{t("visitSubtitle")}</p>
+          <p className="font-sans text-sky-blue">{t("visitSubtitle")}</p>
         </header>
 
-        <div className="mt-10">
+        <div className="mt-6">
           <PracticalInfo
             contact={contact}
             hours={tFooter("hours")}

@@ -11,9 +11,9 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 
 const navLinkKeys = [
   { href: "/", key: "home" },
+  { href: "/#gallery", key: "gallery" },
   { href: "/#concept", key: "concept" },
   { href: "/menu", key: "menu" },
-  { href: "/#gallery", key: "gallery" },
 ] as const;
 
 export function Header() {
