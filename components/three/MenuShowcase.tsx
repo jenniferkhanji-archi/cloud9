@@ -31,7 +31,7 @@ export function MenuShowcase() {
 
   return (
     <section className="grid grid-cols-1 items-center gap-6 p-6 sm:grid-cols-2 sm:p-10">
-      <div>
+      <div className="text-center sm:text-left">
         <div className="space-y-2">
           {CATEGORIES.map((cat, i) => (
             <button
@@ -41,14 +41,14 @@ export function MenuShowcase() {
               onFocus={() => setActive(i)}
               onClick={() => setActive(i)}
               className={cn(
-                "flex w-full items-center gap-2 text-left font-serif text-3xl font-semibold transition-colors duration-200 sm:text-4xl",
+                "flex w-full items-center justify-center gap-2 text-center font-serif text-3xl font-semibold transition-colors duration-200 sm:justify-start sm:text-left sm:text-4xl",
                 i === active ? "text-dusty-blue" : "text-espresso/50 hover:text-espresso"
               )}
             >
               {t(`menuShowcase.${cat.key}.name`)}
               <span
                 className={cn(
-                  "transition-opacity duration-200",
+                  "hidden transition-opacity duration-200 sm:inline-block",
                   i === active ? "opacity-100" : "opacity-0"
                 )}
               >
@@ -58,7 +58,7 @@ export function MenuShowcase() {
           ))}
         </div>
 
-        <div className="mt-4 min-h-[2.5rem] max-w-sm">
+        <div className="mx-auto mt-4 min-h-[2.5rem] max-w-sm sm:mx-0">
           <AnimatePresence mode="wait">
             <motion.p
               key={CATEGORIES[active].key}
@@ -73,7 +73,7 @@ export function MenuShowcase() {
           </AnimatePresence>
         </div>
 
-        <div className="pt-4">
+        <div className="flex justify-center pt-4 sm:justify-start">
           <Button asChild size="default" variant="bold">
             <LocaleLink href="/menu">{t("seeMenu")}</LocaleLink>
           </Button>
