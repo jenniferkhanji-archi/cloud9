@@ -44,7 +44,7 @@ export function WavingMascot({ className }: { className?: string }) {
           transformOrigin: "25% 92%",
         }}
         animate={{ rotate: [0, -18, 12, -18, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
   );
