@@ -16,24 +16,24 @@ export function PracticalInfo({
 
   return (
     <div className="grid gap-4 sm:grid-cols-3">
-      <div className="hard-card p-6 text-center">
-        <div className="badge-icon bg-powder-blue mx-auto">
+      <div className="rounded-3xl bg-soft-white/50 p-6 text-center shadow-soft backdrop-blur-md">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-powder-blue/70">
           <Clock className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
         <h3 className="mt-4 font-serif text-lg font-semibold text-espresso">{labels.hours}</h3>
         <p className="mt-1.5 text-sm font-medium text-stone-600">{hours}</p>
       </div>
 
-      <div className="hard-card p-6 text-center">
-        <div className="badge-icon bg-sand mx-auto">
+      <div className="rounded-3xl bg-soft-white/50 p-6 text-center shadow-soft backdrop-blur-md">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sand/70">
           <MapPin className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
         <h3 className="mt-4 font-serif text-lg font-semibold text-espresso">{labels.address}</h3>
         <p className="mt-1.5 text-sm font-medium text-stone-600">{address}</p>
       </div>
 
-      <div className="hard-card p-6 text-center">
-        <div className="badge-icon bg-dusty-blue mx-auto">
+      <div className="rounded-3xl bg-soft-white/50 p-6 text-center shadow-soft backdrop-blur-md">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-dusty-blue/70">
           <Mail className="h-7 w-7 text-espresso" strokeWidth={2} />
         </div>
         <h3 className="mt-4 font-serif text-lg font-semibold text-espresso">{labels.contact}</h3>

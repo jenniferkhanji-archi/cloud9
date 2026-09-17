@@ -1,6 +1,6 @@
 import { Cloud } from "lucide-react";
 import { MenuShowcase } from "@/components/three/MenuShowcase";
-import { GallerySlideshow } from "@/components/home/GallerySlideshow";
+import { GalleryGrid } from "@/components/home/GalleryGrid";
 import { ConceptSlideshow } from "@/components/home/ConceptSlideshow";
 import { PracticalInfo } from "@/components/home/PracticalInfo";
 import { WavingMascot } from "@/components/home/WavingMascot";
@@ -102,20 +102,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {galleryImages.length > 0 && (
-        <section id="gallery" className="mt-20 scroll-mt-24 sm:mt-28">
-          <header className="text-center">
-            <h2 className="font-serif text-3xl font-medium text-espresso sm:text-5xl">
-              {tGallery("title")}
-            </h2>
-            <p className="mt-3 font-sans text-stone-600">{tGallery("subtitle")}</p>
-          </header>
+      <section id="gallery" className="mt-20 scroll-mt-24 sm:mt-28">
+        <header className="text-center">
+          <h2 className="font-serif text-3xl font-medium text-espresso sm:text-5xl">
+            {tGallery("title")}
+          </h2>
+          <p className="mt-3 font-sans text-stone-600">{tGallery("subtitle")}</p>
+        </header>
 
-          <div className="mt-10">
-            <GallerySlideshow images={galleryImages} />
-          </div>
-        </section>
-      )}
+        <div className="mt-10">
+          <GalleryGrid images={galleryImages} comingSoon={tGallery("comingSoon")} />
+        </div>
+      </section>
 
       <section id="visit" className="mt-20 scroll-mt-24 sm:mt-28">
         <header className="text-center">

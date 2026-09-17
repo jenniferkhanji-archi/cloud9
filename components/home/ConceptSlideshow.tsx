@@ -27,7 +27,7 @@ export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
   const slide = slides[active];
 
   return (
-    <div className="overflow-hidden rounded-3xl bg-soft-white shadow-soft">
+    <div className="overflow-hidden rounded-3xl bg-soft-white/50 shadow-soft backdrop-blur-md">
       <AnimatePresence mode="wait">
         <motion.div
           key={slide.id}
