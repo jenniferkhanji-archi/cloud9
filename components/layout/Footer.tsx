@@ -66,6 +66,14 @@ export async function Footer() {
                 </svg>
               </a>
             </div>
+            <a
+              href="https://g.page/r/CbHvO74Y13VsEBM/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-cream/80 hover:text-cream"
+            >
+              {t("leaveReview")}
+            </a>
           </div>
 
           <div className="flex flex-col items-center gap-1.5 sm:items-start">
