@@ -70,7 +70,7 @@ export default async function HomePage() {
         <MenuShowcase />
       </div>
 
-      <section id="gallery" className="mt-20 scroll-mt-24 sm:mt-28">
+      <section id="gallery" className="mt-12 scroll-mt-24 sm:mt-16">
         <header className="text-center">
           <TypewriterText
             text={fr ? concept.closing_line_fr : concept.closing_line}
@@ -84,7 +84,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="concept" className="mt-20 scroll-mt-24 sm:mt-28">
+      <section id="concept" className="mt-12 scroll-mt-24 sm:mt-16">
         <header className="text-center">
           <p className="font-sans text-sky-blue">{fr ? concept.subtitle_fr : concept.subtitle}</p>
         </header>
@@ -103,7 +103,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="visit" className="mt-20 scroll-mt-24 sm:mt-28">
+      <section id="visit" className="mt-12 scroll-mt-24 sm:mt-16">
         <header className="text-center">
           <p className="font-sans text-sky-blue">{t("visitSubtitle")}</p>
         </header>
