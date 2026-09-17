@@ -21,7 +21,7 @@ function SlideOne() {
         priority
         className="mx-auto h-28 w-auto"
       />
-      <h1 className="mt-6 font-serif text-4xl font-medium text-sky-blue sm:text-6xl">
+      <h1 className="mt-6 font-serif text-4xl font-medium text-sky-blue-deep sm:text-6xl">
         Every Cup,
         <br />A Moment in the Clouds
       </h1>
@@ -36,10 +36,10 @@ function SlideOne() {
 function SlideTwo() {
   return (
     <>
-      <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
+      <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue-deep">
         Small-Batch Roasted
       </p>
-      <h2 className="mt-4 font-serif text-4xl font-medium text-sky-blue sm:text-6xl">
+      <h2 className="mt-4 font-serif text-4xl font-medium text-sky-blue-deep sm:text-6xl">
         Poured With Care,
         <br />
         Sip By Sip
@@ -54,7 +54,7 @@ function SlideTwo() {
 function SlideThree() {
   return (
     <>
-      <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue">
+      <p className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-sky-blue-deep">
         84 Rue Boileau, Lyon
       </p>
       <Image

@@ -14,6 +14,7 @@ const config: Config = {
         "latte-beige": "#D6C7B3",
         ivory: "#F7F3EA",
         "sky-blue": "#839BAE",
+        "sky-blue-deep": "#4A5F72",
         "powder-blue": "#BED4E5",
         "soft-white": "#FAF8F3",
         "coffee-brown": "#53443D",

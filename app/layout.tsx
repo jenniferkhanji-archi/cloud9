@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Fredoka, DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -17,6 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Cloud9 — Dreamy Coffee",
   description: "A coffee shop where every cup feels like a moment in the clouds.",
 };
@@ -28,7 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${fredoka.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen font-sans">{children}</body>
+      <body className="min-h-screen font-sans">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

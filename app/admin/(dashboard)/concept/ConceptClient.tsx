@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
-import type { ConceptContent } from "@/lib/concept-content";
+import type { ConceptContent, ConceptSection } from "@/lib/concept-content";
 
 const inputClass =
   "w-full rounded-2xl border border-latte-beige bg-soft-white/80 px-4 py-2.5 text-sm text-stone-800 focus:border-sky-blue focus:outline-none focus:ring-2 focus:ring-sky-blue/20";
@@ -41,35 +41,78 @@ function Field({
   );
 }
 
-function Section({
-  heading,
-  enTitle,
-  frTitle,
-  onTitle,
-  onTitleFr,
-  enText,
-  frText,
-  onText,
-  onTextFr,
+function SectionEditor({
+  index,
+  section,
+  onChange,
 }: {
-  heading: string;
-  enTitle: string;
-  frTitle: string;
-  onTitle: (v: string) => void;
-  onTitleFr: (v: string) => void;
-  enText: string;
-  frText: string;
-  onText: (v: string) => void;
-  onTextFr: (v: string) => void;
+  index: number;
+  section: ConceptSection;
+  onChange: (next: ConceptSection) => void;
 }) {
+  const [uploading, setUploading] = useState(false);
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+
+  const set =
+    <K extends keyof ConceptSection>(key: K) =>
+    (value: ConceptSection[K]) =>
+      onChange({ ...section, [key]: value });
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const res = await fetch("/api/admin/concept/image", { method: "POST", body: form });
+      const data = await res.json();
+      if (data.path) set("image")(data.path);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return (
     <GlassCard className="p-6">
-      <h2 className="font-serif text-lg font-medium text-stone-800">{heading}</h2>
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Field label="Title (EN)" value={enTitle} onChange={onTitle} />
-        <Field label="Titre (FR)" value={frTitle} onChange={onTitleFr} />
-        <Field label="Text (EN)" value={enText} onChange={onText} multiline />
-        <Field label="Texte (FR)" value={frText} onChange={onTextFr} multiline />
+      <h2 className="font-serif text-lg font-medium text-stone-800">
+        {String(index).padStart(2, "0")} — {section.title || "Section"}
+      </h2>
+
+      <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+        <div className="sm:w-40 sm:shrink-0">
+          <label className="mb-1 block text-xs font-medium text-stone-500">Image</label>
+          <div className="relative aspect-square overflow-hidden rounded-2xl border border-latte-beige bg-cloud-100">
+            {section.image ? (
+              <img
+                src={`${supabaseUrl}/storage/v1/object/public/concept/${section.image}`}
+                alt=""
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-xs text-stone-400">
+                No image
+              </div>
+            )}
+          </div>
+          <label className="mt-2 inline-flex w-full cursor-pointer items-center justify-center rounded-xl bg-stone-800 px-3 py-2 text-xs font-medium text-cream hover:bg-stone-700">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleUpload}
+              disabled={uploading}
+            />
+            {uploading ? "Uploading…" : "Upload"}
+          </label>
+        </div>
+
+        <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
+          <Field label="Title (EN)" value={section.title} onChange={set("title")} />
+          <Field label="Titre (FR)" value={section.title_fr} onChange={set("title_fr")} />
+          <Field label="Text (EN)" value={section.text} onChange={set("text")} multiline />
+          <Field label="Texte (FR)" value={section.text_fr} onChange={set("text_fr")} multiline />
+        </div>
       </div>
     </GlassCard>
   );
@@ -82,8 +125,14 @@ export function ConceptClient({ initialContent }: { initialContent: ConceptConte
 
   const set =
     <K extends keyof ConceptContent>(key: K) =>
-    (value: string) =>
+    (value: ConceptContent[K]) =>
       setContent((c) => ({ ...c, [key]: value }));
+
+  const setSection = (index: number) => (next: ConceptSection) =>
+    setContent((c) => ({
+      ...c,
+      sections: c.sections.map((s, i) => (i === index ? next : s)),
+    }));
 
   const handleSave = async () => {
     setSaving(true);
@@ -118,44 +167,28 @@ export function ConceptClient({ initialContent }: { initialContent: ConceptConte
         </div>
       </GlassCard>
 
-      <Section
-        heading="The story"
-        enTitle={content.story_title}
-        frTitle={content.story_title_fr}
-        onTitle={set("story_title")}
-        onTitleFr={set("story_title_fr")}
-        enText={content.story_text}
-        frText={content.story_text_fr}
-        onText={set("story_text")}
-        onTextFr={set("story_text_fr")}
-      />
+      {content.sections.map((section, i) => (
+        <SectionEditor key={i} index={i + 1} section={section} onChange={setSection(i)} />
+      ))}
 
-      <Section
-        heading="The café"
-        enTitle={content.cafe_title}
-        frTitle={content.cafe_title_fr}
-        onTitle={set("cafe_title")}
-        onTitleFr={set("cafe_title_fr")}
-        enText={content.cafe_text}
-        frText={content.cafe_text_fr}
-        onText={set("cafe_text")}
-        onTextFr={set("cafe_text_fr")}
-      />
-
-      <Section
-        heading="The coffee"
-        enTitle={content.coffee_title}
-        frTitle={content.coffee_title_fr}
-        onTitle={set("coffee_title")}
-        onTitleFr={set("coffee_title_fr")}
-        enText={content.coffee_text}
-        frText={content.coffee_text_fr}
-        onText={set("coffee_text")}
-        onTextFr={set("coffee_text_fr")}
-      />
+      <GlassCard className="p-6">
+        <h2 className="font-serif text-lg font-medium text-stone-800">Closing line</h2>
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Field
+            label="Closing line (EN)"
+            value={content.closing_line}
+            onChange={set("closing_line")}
+          />
+          <Field
+            label="Phrase de fin (FR)"
+            value={content.closing_line_fr}
+            onChange={set("closing_line_fr")}
+          />
+        </div>
+      </GlassCard>
 
       {message === "success" && (
-        <p className="text-sm text-green-600">Saved. Changes will appear on the Concept page.</p>
+        <p className="text-sm text-green-600">Saved. Changes will appear on the homepage.</p>
       )}
       {message === "error" && <p className="text-sm text-red-600">Failed to save. Try again.</p>}
 

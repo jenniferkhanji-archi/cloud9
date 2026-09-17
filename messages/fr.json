@@ -24,6 +24,11 @@
     "galleryCardDesc": "Un aperçu du café et de nos boissons.",
     "conceptCardTitle": "Notre concept",
     "conceptCardDesc": "L'histoire de Cloud9 et ce qui en fait un cocon.",
+    "visitTitle": "Venez nous dire bonjour",
+    "visitSubtitle": "Tout ce qu'il faut pour nous trouver",
+    "hoursLabel": "Horaires",
+    "addressLabel": "Adresse",
+    "contactLabel": "Contact",
     "menuShowcase": {
       "cloud": {
         "name": "Cloud Series",
@@ -55,5 +60,10 @@
     "findUs": "Nous trouver",
     "address": "123 Cloud St",
     "hours": "Lun–Ven 8h–18h · Sam–Dim 9h–17h"
+  },
+  "notFound": {
+    "title": "Perdu dans les nuages.",
+    "subtitle": "Nous n'avons pas trouvé cette page.",
+    "backHome": "Retour à l'accueil"
   }
 }
