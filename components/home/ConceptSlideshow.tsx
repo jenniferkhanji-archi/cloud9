@@ -87,7 +87,7 @@ export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
                 {slide.title}
               </h3>
               <p
-                className={`mt-3 line-clamp-4 font-sans text-sm leading-relaxed sm:text-base ${hasImages ? "text-cream/90" : "text-stone-600"}`}
+                className={`mt-3 line-clamp-5 font-sans text-sm leading-relaxed sm:line-clamp-4 sm:text-base ${hasImages ? "text-cream/90" : "text-stone-600"}`}
               >
                 {slide.text}
               </p>

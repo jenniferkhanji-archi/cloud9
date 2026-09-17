@@ -52,23 +52,18 @@ export default async function HomePage() {
 
       <section className="relative overflow-visible py-6 text-center sm:py-12">
         <WavingMascot className="h-48 sm:h-64" />
-        <p className="mt-6 font-sans text-sm font-medium text-stone-500">
-          {[contact.address_line1, contact.address_line2, contact.address_line3]
-            .filter(Boolean)
-            .join(" · ")}
-        </p>
       </section>
 
       {drink?.name && (
         <section className="mx-auto mt-8 w-full max-w-xl">
           <div className="flex items-stretch overflow-hidden rounded-3xl border border-white/40 bg-soft-white/10 text-left shadow-soft backdrop-blur-xl">
             {drink.image_path && (
-              <div className="relative w-28 shrink-0 sm:w-36">
+              <div className="relative w-28 shrink-0 p-2 sm:w-36">
                 <Image
                   src={`${supabaseUrl}/storage/v1/object/public/drink-of-month/${drink.image_path}`}
                   alt={drink.name}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="144px"
                 />
               </div>
@@ -94,7 +89,7 @@ export default async function HomePage() {
       </div>
 
       <section id="gallery" className="mt-12 scroll-mt-24 sm:mt-16">
-        <header className="text-center">
+        <header className="min-h-[4rem] text-center sm:min-h-0">
           <TypewriterText
             text={fr ? concept.closing_line_fr : concept.closing_line}
             className="font-serif text-2xl font-medium text-sky-blue-deep sm:text-4xl"
