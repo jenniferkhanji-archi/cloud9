@@ -5,6 +5,7 @@ import { ConceptSlideshow } from "@/components/home/ConceptSlideshow";
 import { PracticalInfo } from "@/components/home/PracticalInfo";
 import { WavingMascot } from "@/components/home/WavingMascot";
 import { TypewriterText } from "@/components/home/TypewriterText";
+import { LocalBusinessJsonLd } from "@/components/seo/LocalBusinessJsonLd";
 import { getWeekKey } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -45,6 +46,9 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-4 pb-16 sm:px-6 sm:pt-8">
+      <LocalBusinessJsonLd contact={contact} locale={locale} />
+      <h1 className="sr-only">Cloud9 — {t("tagline")}</h1>
+
       <section className="relative overflow-visible py-6 text-center sm:py-12">
         <WavingMascot className="h-48 sm:h-64" />
         <p className="mt-6 font-sans text-sm font-medium text-stone-500">

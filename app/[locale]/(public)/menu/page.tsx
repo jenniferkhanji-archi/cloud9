@@ -1,10 +1,33 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import type { MenuItem } from "@/lib/db/types";
 import { getTranslations, getLocale } from "next-intl/server";
+import { siteUrl } from "@/lib/site-url";
 import { MenuTabs } from "./MenuTabs";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const fr = locale === "fr";
+
+  const title = fr ? "Menu — Cloud9, café à Lyon" : "Menu — Cloud9 coffee shop in Lyon";
+  const description = fr
+    ? "Cafés de spécialité, matcha, lattes signature et pâtisseries à Cloud9, Lyon 6e."
+    : "Specialty coffee, matcha, signature lattes and pastries at Cloud9 in Lyon.";
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `${siteUrl}/${locale}/menu` },
+    openGraph: { title, description, url: `${siteUrl}/${locale}/menu` },
+  };
+}
 
 const GROUPS = [
   {
