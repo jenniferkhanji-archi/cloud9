@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link as LocaleLink } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { OrbitingClouds } from "@/components/cloud/OrbitingClouds";
+import { ChevronDown } from "lucide-react";
 
 const WHEEL_COOLDOWN = 900;
 const SWIPE_THRESHOLD = 50;
@@ -26,9 +27,13 @@ function SlideOne() {
         <br />A Moment in the Clouds
       </h1>
       <p className="mx-auto mt-6 max-w-sm font-sans text-base text-stone-600">
-        Scroll to drift through Cloud9
+        <span className="sm:hidden">Swipe to drift through Cloud9</span>
+        <span className="hidden sm:inline">Scroll to drift through Cloud9</span>
       </p>
-      <div className="mx-auto mt-10 h-8 w-5 animate-bounce rounded-full border-2 border-espresso/40" />
+      <ChevronDown
+        className="mx-auto mt-10 h-8 w-8 animate-bounce text-espresso/40"
+        strokeWidth={2.5}
+      />
     </>
   );
 }

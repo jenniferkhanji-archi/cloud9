@@ -1,9 +1,11 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-export interface Cloud9Mood {
+export interface DrinkOfMonth {
   id: string;
-  week_key: string;
-  message: string;
+  month_key: string;
+  name: string;
+  description: string;
+  image_path: string | null;
   created_at: string;
   updated_at: string;
 }
