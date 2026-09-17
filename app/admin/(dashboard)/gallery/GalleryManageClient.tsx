@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import type { GalleryImage } from "@/lib/db/types";
@@ -8,6 +9,23 @@ import type { GalleryImage } from "@/lib/db/types";
 export function GalleryManageClient({ initialImages }: { initialImages: GalleryImage[] }) {
   const [images, setImages] = useState(initialImages);
   const [uploading, setUploading] = useState(false);
+
+  const persistOrder = async (ordered: GalleryImage[]) => {
+    await fetch("/api/admin/gallery", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ order: ordered.map((i) => i.id) }),
+    });
+  };
+
+  const moveImage = (index: number, direction: -1 | 1) => {
+    const target = index + direction;
+    if (target < 0 || target >= images.length) return;
+    const reordered = [...images];
+    [reordered[index], reordered[target]] = [reordered[target], reordered[index]];
+    setImages(reordered);
+    persistOrder(reordered);
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -52,8 +70,11 @@ export function GalleryManageClient({ initialImages }: { initialImages: GalleryI
         />
         {uploading ? "Uploading…" : "Upload image"}
       </label>
+      <p className="text-xs text-stone-500">
+        Use the arrows to change the order photos appear in on the site.
+      </p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {images.map((img) => (
+        {images.map((img, i) => (
           <GlassCard key={img.id} className="overflow-hidden p-0">
             <div className="relative aspect-video bg-cloud-200">
               <img
@@ -62,8 +83,27 @@ export function GalleryManageClient({ initialImages }: { initialImages: GalleryI
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="flex items-center justify-between p-3">
-              <span className="truncate text-sm text-stone-600">{img.path}</span>
+            <div className="flex items-center justify-between gap-2 p-3">
+              <div className="flex items-center gap-1">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  disabled={i === 0}
+                  onClick={() => moveImage(i, -1)}
+                  aria-label="Move earlier"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  disabled={i === images.length - 1}
+                  onClick={() => moveImage(i, 1)}
+                  aria-label="Move later"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
               <Button size="sm" variant="ghost" onClick={() => handleDelete(img.id)}>
                 Delete
               </Button>

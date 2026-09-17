@@ -16,13 +16,33 @@ export async function POST(request: Request) {
     .from(BUCKET)
     .upload(name, file, { upsert: true });
   if (upErr) return serverError(upErr);
+  const { count } = await admin.from("gallery_images").select("id", { count: "exact", head: true });
   const { data: row, error: rowErr } = await admin
     .from("gallery_images")
-    .insert({ path: up.path, sort_order: 0 })
+    .insert({ path: up.path, sort_order: count ?? 0 })
     .select("id, path")
     .single();
   if (rowErr) return serverError(rowErr);
   return NextResponse.json({ id: row.id, path: row.path });
+}
+
+export async function PATCH(request: Request) {
+  const auth = await requireAdmin();
+  if (!auth.ok) return NextResponse.json({ error: "Unauthorized" }, { status: auth.status });
+  const admin = auth.admin;
+  const body = await request.json();
+  const order = body.order as string[] | undefined;
+  if (!Array.isArray(order) || order.some((id) => typeof id !== "string")) {
+    return NextResponse.json({ error: "order (string[]) required" }, { status: 400 });
+  }
+  const results = await Promise.all(
+    order.map((id, index) =>
+      admin.from("gallery_images").update({ sort_order: index }).eq("id", id)
+    )
+  );
+  const failed = results.find((r) => r.error);
+  if (failed?.error) return serverError(failed.error);
+  return NextResponse.json({ success: true });
 }
 
 export async function DELETE(request: Request) {

@@ -1,47 +1,66 @@
 const CONCEPT_CONTENT_ID = "00000000-0000-0000-0000-000000000002";
 
+export interface ConceptSection {
+  title: string;
+  title_fr: string;
+  text: string;
+  text_fr: string;
+  image: string | null;
+}
+
 export interface ConceptContent {
   title: string;
   title_fr: string;
   subtitle: string;
   subtitle_fr: string;
-  story_title: string;
-  story_title_fr: string;
-  story_text: string;
-  story_text_fr: string;
-  cafe_title: string;
-  cafe_title_fr: string;
-  cafe_text: string;
-  cafe_text_fr: string;
-  coffee_title: string;
-  coffee_title_fr: string;
-  coffee_text: string;
-  coffee_text_fr: string;
+  sections: ConceptSection[];
+  closing_line: string;
+  closing_line_fr: string;
 }
 
+const DEFAULT_SECTIONS: ConceptSection[] = [
+  {
+    title: "Why Cloud Nine?",
+    title_fr: "Pourquoi Cloud Nine ?",
+    text: 'Cloud Nine comes from the expression "to be on cloud nine" — that feeling of pure happiness. We wanted to turn that feeling into a place: somewhere to slow down, enjoy a good drink and disconnect for a moment. From the soft blue tones to the smallest details, everything was imagined around that idea.',
+    text_fr:
+      "Cloud Nine vient de l'expression « être aux anges » — ce sentiment de bonheur pur. Nous avons voulu transformer cette sensation en un lieu : un endroit pour ralentir, savourer une bonne boisson et déconnecter un instant. Des tons bleu pastel aux moindres détails, tout a été pensé autour de cette idée.",
+    image: null,
+  },
+  {
+    title: "It starts with good coffee.",
+    title_fr: "Tout commence par un bon café.",
+    text: "At the heart of Cloud Nine is specialty coffee. Our Brazilian coffee is roasted locally in Lyon and selected for its quality, balance and comforting profile. Because a beautiful coffee shop means nothing without really good coffee.",
+    text_fr:
+      "Au cœur de Cloud Nine se trouve un café de spécialité. Notre café brésilien est torréfié localement à Lyon et sélectionné pour sa qualité, son équilibre et son profil réconfortant. Car un beau café ne veut rien dire sans un vrai bon café.",
+    image: null,
+  },
+  {
+    title: "Beyond coffee.",
+    title_fr: "Plus que du café.",
+    text: "Coffee is only part of the story. Matcha, signature lattes, cloud drinks and seasonal creations complete the menu, with a focus on flavours, textures and combinations you won't necessarily find everywhere else.",
+    text_fr:
+      "Le café n'est qu'une partie de l'histoire. Matcha, lattes signature, boissons nuageuses et créations de saison complètent la carte, avec une attention particulière aux saveurs, aux textures et aux associations que vous ne trouverez pas forcément ailleurs.",
+    image: null,
+  },
+  {
+    title: "Designed down to the details.",
+    title_fr: "Pensé jusque dans les moindres détails.",
+    text: "Cloud Nine was designed as a complete visual universe. Soft blues, warm neutrals, rounded shapes and carefully considered details come together to create a space that feels distinctive, comfortable and instantly recognizable.",
+    text_fr:
+      "Cloud Nine a été conçu comme un univers visuel complet. Bleus doux, neutres chaleureux, formes arrondies et détails soignés se rejoignent pour créer un espace distinctif, confortable et immédiatement reconnaissable.",
+    image: null,
+  },
+];
+
 const DEFAULTS: ConceptContent = {
-  title: "Our concept",
-  title_fr: "Notre concept",
-  subtitle: "Where the sky meets your cup",
-  subtitle_fr: "Là où le ciel rencontre votre tasse",
-  story_title: "The story",
-  story_title_fr: "L'histoire",
-  story_text:
-    "Cloud9 was born from a simple idea: what if your coffee break felt like a little escape? We wanted a space that feels soft, dreamy, and a world away from the rush—somewhere you can slow down, sip something wonderful, and leave feeling a little lighter.",
-  story_text_fr:
-    "Cloud9 est né d'une idée simple : et si votre pause café ressemblait à une petite évasion ? Nous voulions un espace doux, onirique et loin de l'agitation—un endroit où prendre son temps, savourer quelque chose de délicieux et repartir plus léger.",
-  cafe_title: "The café",
-  cafe_title_fr: "Le café",
-  cafe_text:
-    "Our café is designed to feel like stepping into a cloud—airy, calm, and inviting. Soft curves, natural light, and a palette of creams and sky blues create a place where every visit feels special. Whether you're here for a quick takeaway or a long catch-up, we hope you leave feeling on cloud nine.",
-  cafe_text_fr:
-    "Notre café est conçu pour donner l'impression de marcher dans un nuage—aéré, calme et accueillant. Courbes douces, lumière naturelle et une palette de crèmes et bleu ciel créent un lieu où chaque visite est spéciale. Que vous veniez pour un café à emporter ou une longue discussion, nous espérons que vous repartirez sur un petit nuage.",
-  coffee_title: "The coffee",
-  coffee_title_fr: "Le café",
-  coffee_text:
-    "We source our beans with care and craft each drink to be as beautiful as it is delicious. From our signature Cloud Blend to seasonal specials, every cup is made with the same attention to detail and a touch of magic.",
-  coffee_text_fr:
-    "Nous sélectionnons nos grains avec soin et préparons chaque boisson pour qu'elle soit aussi belle que délicieuse. De notre mélange Cloud signature aux spécialités de saison, chaque tasse est réalisée avec la même attention aux détails et une touche de magie.",
+  title: "Concept",
+  title_fr: "Concept",
+  subtitle: "The story behind Cloud Nine.",
+  subtitle_fr: "L'histoire derrière Cloud Nine.",
+  sections: DEFAULT_SECTIONS,
+  closing_line: "Come for the coffee, stay for the vibe.",
+  closing_line_fr: "Venez pour le café, restez pour l'ambiance.",
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -52,27 +71,27 @@ export async function getConceptContent(client: any): Promise<ConceptContent> {
       .select()
       .eq("id", CONCEPT_CONTENT_ID)
       .single();
-    if (!data) return { ...DEFAULTS };
+    if (!data) return { ...DEFAULTS, sections: DEFAULT_SECTIONS.map((s) => ({ ...s })) };
     return {
       title: data.title ?? DEFAULTS.title,
       title_fr: data.title_fr ?? DEFAULTS.title_fr,
       subtitle: data.subtitle ?? DEFAULTS.subtitle,
       subtitle_fr: data.subtitle_fr ?? DEFAULTS.subtitle_fr,
-      story_title: data.story_title ?? DEFAULTS.story_title,
-      story_title_fr: data.story_title_fr ?? DEFAULTS.story_title_fr,
-      story_text: data.story_text ?? DEFAULTS.story_text,
-      story_text_fr: data.story_text_fr ?? DEFAULTS.story_text_fr,
-      cafe_title: data.cafe_title ?? DEFAULTS.cafe_title,
-      cafe_title_fr: data.cafe_title_fr ?? DEFAULTS.cafe_title_fr,
-      cafe_text: data.cafe_text ?? DEFAULTS.cafe_text,
-      cafe_text_fr: data.cafe_text_fr ?? DEFAULTS.cafe_text_fr,
-      coffee_title: data.coffee_title ?? DEFAULTS.coffee_title,
-      coffee_title_fr: data.coffee_title_fr ?? DEFAULTS.coffee_title_fr,
-      coffee_text: data.coffee_text ?? DEFAULTS.coffee_text,
-      coffee_text_fr: data.coffee_text_fr ?? DEFAULTS.coffee_text_fr,
+      sections: [1, 2, 3, 4].map((n) => {
+        const d = DEFAULT_SECTIONS[n - 1];
+        return {
+          title: data[`section${n}_title`] ?? d.title,
+          title_fr: data[`section${n}_title_fr`] ?? d.title_fr,
+          text: data[`section${n}_text`] ?? d.text,
+          text_fr: data[`section${n}_text_fr`] ?? d.text_fr,
+          image: data[`section${n}_image`] ?? null,
+        };
+      }),
+      closing_line: data.closing_line ?? DEFAULTS.closing_line,
+      closing_line_fr: data.closing_line_fr ?? DEFAULTS.closing_line_fr,
     };
   } catch {
-    return { ...DEFAULTS };
+    return { ...DEFAULTS, sections: DEFAULT_SECTIONS.map((s) => ({ ...s })) };
   }
 }
 

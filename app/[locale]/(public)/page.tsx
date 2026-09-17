@@ -81,25 +81,20 @@ export default async function HomePage() {
 
         <div className="mt-10">
           <ConceptSlideshow
-            slides={[
-              {
-                id: "story",
-                title: fr ? concept.story_title_fr : concept.story_title,
-                text: fr ? concept.story_text_fr : concept.story_text,
-              },
-              {
-                id: "cafe",
-                title: fr ? concept.cafe_title_fr : concept.cafe_title,
-                text: fr ? concept.cafe_text_fr : concept.cafe_text,
-              },
-              {
-                id: "coffee",
-                title: fr ? concept.coffee_title_fr : concept.coffee_title,
-                text: fr ? concept.coffee_text_fr : concept.coffee_text,
-              },
-            ]}
+            slides={concept.sections.map((s, i) => ({
+              id: `section-${i}`,
+              title: fr ? s.title_fr : s.title,
+              text: fr ? s.text_fr : s.text,
+              image: s.image
+                ? `${supabaseUrl}/storage/v1/object/public/concept/${s.image}`
+                : undefined,
+            }))}
           />
         </div>
+
+        <p className="mt-8 text-center font-serif text-lg font-medium text-sky-blue">
+          {fr ? concept.closing_line_fr : concept.closing_line}
+        </p>
       </section>
 
       <section id="gallery" className="mt-20 scroll-mt-24 sm:mt-28">

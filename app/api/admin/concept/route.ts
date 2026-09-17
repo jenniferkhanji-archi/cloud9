@@ -18,6 +18,10 @@ function toTrimmedString(v: unknown, fallback: string): string {
   return typeof v === "string" && v.trim() ? v.trim() : fallback;
 }
 
+function toImagePath(v: unknown): string | null {
+  return typeof v === "string" && v.trim() ? v.trim() : null;
+}
+
 export async function POST(request: Request) {
   const auth = await requireAdmin();
   if (!auth.ok) return NextResponse.json({ error: "Unauthorized" }, { status: auth.status });
@@ -26,26 +30,28 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as Partial<ConceptContent>;
     const { DEFAULTS } = await import("@/lib/concept-content");
-    const row = {
+
+    const row: Record<string, string | null> = {
       id: CONCEPT_CONTENT_ID,
       title: toTrimmedString(body.title, DEFAULTS.title),
       title_fr: toTrimmedString(body.title_fr, DEFAULTS.title_fr),
       subtitle: toTrimmedString(body.subtitle, DEFAULTS.subtitle),
       subtitle_fr: toTrimmedString(body.subtitle_fr, DEFAULTS.subtitle_fr),
-      story_title: toTrimmedString(body.story_title, DEFAULTS.story_title),
-      story_title_fr: toTrimmedString(body.story_title_fr, DEFAULTS.story_title_fr),
-      story_text: toTrimmedString(body.story_text, DEFAULTS.story_text),
-      story_text_fr: toTrimmedString(body.story_text_fr, DEFAULTS.story_text_fr),
-      cafe_title: toTrimmedString(body.cafe_title, DEFAULTS.cafe_title),
-      cafe_title_fr: toTrimmedString(body.cafe_title_fr, DEFAULTS.cafe_title_fr),
-      cafe_text: toTrimmedString(body.cafe_text, DEFAULTS.cafe_text),
-      cafe_text_fr: toTrimmedString(body.cafe_text_fr, DEFAULTS.cafe_text_fr),
-      coffee_title: toTrimmedString(body.coffee_title, DEFAULTS.coffee_title),
-      coffee_title_fr: toTrimmedString(body.coffee_title_fr, DEFAULTS.coffee_title_fr),
-      coffee_text: toTrimmedString(body.coffee_text, DEFAULTS.coffee_text),
-      coffee_text_fr: toTrimmedString(body.coffee_text_fr, DEFAULTS.coffee_text_fr),
+      closing_line: toTrimmedString(body.closing_line, DEFAULTS.closing_line),
+      closing_line_fr: toTrimmedString(body.closing_line_fr, DEFAULTS.closing_line_fr),
       updated_at: new Date().toISOString(),
     };
+
+    for (let i = 0; i < 4; i++) {
+      const n = i + 1;
+      const section = body.sections?.[i];
+      const fallback = DEFAULTS.sections[i];
+      row[`section${n}_title`] = toTrimmedString(section?.title, fallback.title);
+      row[`section${n}_title_fr`] = toTrimmedString(section?.title_fr, fallback.title_fr);
+      row[`section${n}_text`] = toTrimmedString(section?.text, fallback.text);
+      row[`section${n}_text_fr`] = toTrimmedString(section?.text_fr, fallback.text_fr);
+      row[`section${n}_image`] = toImagePath(section?.image);
+    }
 
     const { error } = await admin.from("concept_content").upsert(row, { onConflict: "id" });
     if (error) return serverError(error);
