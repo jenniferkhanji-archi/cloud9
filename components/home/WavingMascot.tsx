@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 // Crop box for the raised hand, as fractions of the full mascot image.
 // The box touches the image's top and right edges.
-const HAND_LEFT = 0.76;
+const HAND_LEFT = 0.74;
 const HAND_TOP = 0;
 const HAND_WIDTH = 1 - HAND_LEFT;
-const HAND_HEIGHT = 0.34;
+const HAND_HEIGHT = 0.28;
 
 export function WavingMascot({ className }: { className?: string }) {
   const bgSizeX = (100 / HAND_WIDTH).toFixed(2);
@@ -41,7 +41,7 @@ export function WavingMascot({ className }: { className?: string }) {
           backgroundSize: `${bgSizeX}% ${bgSizeY}%`,
           backgroundPosition: "100% 0%",
           backgroundRepeat: "no-repeat",
-          transformOrigin: "18% 76%",
+          transformOrigin: "25% 92%",
         }}
         animate={{ rotate: [0, -18, 12, -18, 0] }}
         transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
