@@ -9,13 +9,13 @@ interface GalleryImage {
   caption: string | null;
 }
 
-function Tile({ img }: { img: GalleryImage }) {
+function Tile({ img, fallbackAlt }: { img: GalleryImage; fallbackAlt: string }) {
   return (
     <div className="group relative z-0 aspect-square w-36 shrink-0 rounded-2xl transition-transform duration-300 ease-out hover:z-10 hover:scale-110 hover:shadow-xl sm:w-44">
       <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-soft">
         <Image
           src={img.src}
-          alt={img.caption ?? ""}
+          alt={img.caption ?? fallbackAlt}
           fill
           className="object-cover"
           sizes="(max-width: 640px) 144px, 176px"
@@ -33,9 +33,11 @@ function Tile({ img }: { img: GalleryImage }) {
 export function GalleryGrid({
   images,
   comingSoon,
+  imageAlt,
 }: {
   images: GalleryImage[];
   comingSoon: string;
+  imageAlt: string;
 }) {
   const [paused, setPaused] = useState(false);
 
@@ -64,7 +66,7 @@ export function GalleryGrid({
         }}
       >
         {track.map((img, i) => (
-          <Tile key={`${img.id}-${i}`} img={img} />
+          <Tile key={`${img.id}-${i}`} img={img} fallbackAlt={imageAlt} />
         ))}
       </div>
     </div>

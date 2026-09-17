@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -49,10 +50,12 @@ function CloudTab({
           : "min-h-[48px] px-6 py-3 sm:min-h-[56px] sm:px-7"
       )}
     >
-      <img
+      <Image
         src="/brand/cloud-beige-tab.png"
         alt=""
-        className="absolute inset-0 h-full w-full object-fill drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
+        fill
+        sizes="200px"
+        className="object-fill drop-shadow-[0_3px_8px_rgba(0,0,0,0.12)]"
       />
       <motion.img
         src="/brand/cloud-fill-tab.png"
@@ -158,11 +161,15 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
                 </div>
                 <div className="flex shrink-0 flex-col items-center gap-1.5 sm:flex-row sm:gap-3">
                   {item.imageUrl && (
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="h-16 w-16 rounded-2xl border-2 border-espresso object-cover sm:h-20 sm:w-20"
-                    />
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border-2 border-espresso sm:h-20 sm:w-20">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </div>
                   )}
                   <p className="font-sans font-semibold text-espresso">
                     {formatPrice(item.price_cents)}

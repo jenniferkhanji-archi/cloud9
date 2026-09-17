@@ -74,19 +74,25 @@ export default async function HomePage() {
         <header className="text-center">
           <TypewriterText
             text={fr ? concept.closing_line_fr : concept.closing_line}
-            className="font-serif text-2xl font-medium text-sky-blue sm:text-4xl"
+            className="font-serif text-2xl font-medium text-sky-blue-deep sm:text-4xl"
           />
-          <p className="mt-3 font-sans text-sky-blue">{tGallery("subtitle")}</p>
+          <p className="mt-3 font-sans text-sky-blue-deep">{tGallery("subtitle")}</p>
         </header>
 
         <div className="mt-6">
-          <GalleryGrid images={galleryImages} comingSoon={tGallery("comingSoon")} />
+          <GalleryGrid
+            images={galleryImages}
+            comingSoon={tGallery("comingSoon")}
+            imageAlt={tGallery("alt")}
+          />
         </div>
       </section>
 
       <section id="concept" className="mt-12 scroll-mt-24 sm:mt-16">
         <header className="text-center">
-          <p className="font-sans text-sky-blue">{fr ? concept.subtitle_fr : concept.subtitle}</p>
+          <p className="font-sans text-sky-blue-deep">
+            {fr ? concept.subtitle_fr : concept.subtitle}
+          </p>
         </header>
 
         <div className="mt-6">
@@ -105,7 +111,7 @@ export default async function HomePage() {
 
       <section id="visit" className="mt-12 scroll-mt-24 sm:mt-16">
         <header className="text-center">
-          <p className="font-sans text-sky-blue">{t("visitSubtitle")}</p>
+          <p className="font-sans text-sky-blue-deep">{t("visitSubtitle")}</p>
         </header>
 
         <div className="mt-6">

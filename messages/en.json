@@ -60,5 +60,10 @@
     "findUs": "Find us",
     "address": "123 Cloud St",
     "hours": "Mon–Fri 8–18h · Sat–Sun 9–17h"
+  },
+  "notFound": {
+    "title": "Lost in the clouds.",
+    "subtitle": "We couldn't find that page.",
+    "backHome": "Back to home"
   }
 }

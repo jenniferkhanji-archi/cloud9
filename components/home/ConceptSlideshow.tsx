@@ -41,7 +41,7 @@ export function ConceptSlideshow({ slides }: { slides: ConceptSlide[] }) {
             <div className="relative aspect-[4/3] sm:aspect-auto">
               <Image
                 src={slide.image}
-                alt=""
+                alt={slide.title}
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 100vw, 50vw"
