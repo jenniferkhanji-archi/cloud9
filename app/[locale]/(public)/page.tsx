@@ -121,7 +121,7 @@ export default async function HomePage() {
         <div className="mt-6">
           <PracticalInfo
             contact={contact}
-            hours={tFooter("hours")}
+            hours={{ weekday: tFooter("hoursWeekday"), weekend: tFooter("hoursWeekend") }}
             labels={{
               hours: t("hoursLabel"),
               address: t("addressLabel"),

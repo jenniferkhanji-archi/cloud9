@@ -59,7 +59,9 @@
   "footer": {
     "findUs": "Nous trouver",
     "address": "123 Cloud St",
-    "hours": "Lun–Ven 8h–18h · Sam–Dim 9h–17h"
+    "hours": "Lun–Ven 8h–18h · Sam–Dim 9h–17h",
+    "hoursWeekday": "Lun–Ven 8h–18h",
+    "hoursWeekend": "Sam–Dim 9h–17h"
   },
   "notFound": {
     "title": "Perdu dans les nuages.",
