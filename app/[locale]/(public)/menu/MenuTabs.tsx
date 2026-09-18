@@ -119,7 +119,7 @@ export function MenuTabs({ groups }: { groups: MenuGroup[] }) {
             active={i === activeGroup}
             onClick={() => {
               setActiveGroup(i);
-              setActiveSub(g.subs.length === 1 ? 0 : null);
+              setActiveSub(0);
             }}
           />
         ))}
